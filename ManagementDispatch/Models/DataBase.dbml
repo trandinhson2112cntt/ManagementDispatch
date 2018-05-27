@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="QuanLyCongVan" Class="DataBaseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.;Initial Catalog=QuanLyCongVan;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="QuanLyCongVanConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.AspControllers" Member="AspControllers">
+    <Type Name="AspController">
+      <Column Name="Controller" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Action" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Area" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="IsDelete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="AspController_AspRoleController" Member="AspRoleControllers" ThisKey="Controller,Action" OtherKey="Controller,Action" Type="AspRoleController" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PhongBan" Member="PhongBans">
+    <Type Name="PhongBan">
+      <Column Name="IDPhongBan" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TenPhongBan" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="GhiChu" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="isDelete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="PhongBan_CongVanDen" Member="CongVanDens" ThisKey="IDPhongBan" OtherKey="IDPhongBan" Type="CongVanDen" />
+      <Association Name="PhongBan_NhanVien" Member="NhanViens" ThisKey="IDPhongBan" OtherKey="IDPhongBan" Type="NhanVien" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AspNetRoles" Member="AspNetRoles">
+    <Type Name="AspNetRole">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="AspNetRole_AspRoleController" Member="AspRoleControllers" ThisKey="Id" OtherKey="RoldID" Type="AspRoleController" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AspRoleControllers" Member="AspRoleControllers">
+    <Type Name="AspRoleController">
+      <Column Name="RoldID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Controller" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Action" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="AspController_AspRoleController" Member="AspController" ThisKey="Controller,Action" OtherKey="Controller,Action" Type="AspController" IsForeignKey="true" />
+      <Association Name="AspNetRole_AspRoleController" Member="AspNetRole" ThisKey="RoldID" OtherKey="Id" Type="AspNetRole" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CongVanDen" Member="CongVanDens">
+    <Type Name="CongVanDen">
+      <Column Name="IDCongVanDen" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IDLoaiCongVan" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NoiDung" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="NgayGui" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="NgayNhan" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TenNguoiGui" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="IDPhongBan" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IDDonViGui" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IDDonViNhan" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TenNguoiNhan" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="[File]" Member="File" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="AnhScan" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Association Name="CongVanDen_CongVanDi" Member="CongVanDis" ThisKey="IDCongVanDen" OtherKey="IDCongVanDen" Type="CongVanDi" />
+      <Association Name="PhongBan_CongVanDen" Member="PhongBan" ThisKey="IDPhongBan" OtherKey="IDPhongBan" Type="PhongBan" IsForeignKey="true" />
+      <Association Name="DonVi_CongVanDen" Member="DonVi" ThisKey="IDDonViGui" OtherKey="IDDonVi" Type="DonVi" IsForeignKey="true" />
+      <Association Name="DonVi_CongVanDen1" Member="DonVi1" ThisKey="IDDonViNhan" OtherKey="IDDonVi" Type="DonVi" IsForeignKey="true" />
+      <Association Name="LoaiCongVan_CongVanDen" Member="LoaiCongVan" ThisKey="IDLoaiCongVan" OtherKey="IDLoaiCongVan" Type="LoaiCongVan" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CongVanDi" Member="CongVanDis">
+    <Type Name="CongVanDi">
+      <Column Name="IDCongVanDi" Type="System.String" DbType="NChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IDLoaiCongVan" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TenNguoiGui" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="IDCongVanDen" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="IDDonVi" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NoiDung" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="NgayGui" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ThoiHanHoanThanh" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="[File]" Member="File" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="AnhScan" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Association Name="CongVanDen_CongVanDi" Member="CongVanDen" ThisKey="IDCongVanDen" OtherKey="IDCongVanDen" Type="CongVanDen" IsForeignKey="true" />
+      <Association Name="DonVi_CongVanDi" Member="DonVi" ThisKey="IDDonVi" OtherKey="IDDonVi" Type="DonVi" IsForeignKey="true" />
+      <Association Name="LoaiCongVan_CongVanDi" Member="LoaiCongVan" ThisKey="IDLoaiCongVan" OtherKey="IDLoaiCongVan" Type="LoaiCongVan" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DonVi" Member="DonVis">
+    <Type Name="DonVi">
+      <Column Name="IDDonVi" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TenDonVi" Type="System.String" DbType="NVarChar(70)" CanBeNull="true" />
+      <Column Name="ThongTin" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="isDelete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="DonVi_CongVanDen" Member="CongVanDens" ThisKey="IDDonVi" OtherKey="IDDonViGui" Type="CongVanDen" />
+      <Association Name="DonVi_CongVanDen1" Member="CongVanDens1" ThisKey="IDDonVi" OtherKey="IDDonViNhan" Type="CongVanDen" />
+      <Association Name="DonVi_CongVanDi" Member="CongVanDis" ThisKey="IDDonVi" OtherKey="IDDonVi" Type="CongVanDi" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LoaiCongVan" Member="LoaiCongVans">
+    <Type Name="LoaiCongVan">
+      <Column Name="IDLoaiCongVan" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TenLoaiCongVan" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="isDelete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="LoaiCongVan_CongVanDen" Member="CongVanDens" ThisKey="IDLoaiCongVan" OtherKey="IDLoaiCongVan" Type="CongVanDen" />
+      <Association Name="LoaiCongVan_CongVanDi" Member="CongVanDis" ThisKey="IDLoaiCongVan" OtherKey="IDLoaiCongVan" Type="CongVanDi" />
+    </Type>
+  </Table>
+  <Table Name="dbo.NhanVien" Member="NhanViens">
+    <Type Name="NhanVien">
+      <Column Name="IDNhanVien" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="HoTen" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Username" Type="System.String" DbType="Char(20)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="Char(20)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="Char(50)" CanBeNull="true" />
+      <Column Name="NgaySinh" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="SDT" Type="System.String" DbType="Char(15)" CanBeNull="true" />
+      <Column Name="IDPhongBan" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Lock" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="NhanVien_NhatKyHeThong" Member="NhatKyHeThongs" ThisKey="IDNhanVien" OtherKey="IDNhanVien" Type="NhatKyHeThong" />
+      <Association Name="PhongBan_NhanVien" Member="PhongBan" ThisKey="IDPhongBan" OtherKey="IDPhongBan" Type="PhongBan" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.NhatKyHeThong" Member="NhatKyHeThongs">
+    <Type Name="NhatKyHeThong">
+      <Column Name="IDNhatKy" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IDNhanVien" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NoiDungNhatKy" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="NgayGio" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="NhanVien_NhatKyHeThong" Member="NhanVien" ThisKey="IDNhanVien" OtherKey="IDNhanVien" Type="NhanVien" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
