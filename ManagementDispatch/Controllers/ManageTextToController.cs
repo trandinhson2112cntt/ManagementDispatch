@@ -14,7 +14,7 @@ namespace ManagementDispatch.Controllers
         DataBaseDataContext _data = new DataBaseDataContext();
         public ActionResult Index()
         {
-            var getAllTextTo = _data.CongVanDens.ToList();
+            var getAllTextTo = _data.CongVanDens.Where(c=>c.IDLoaiCongVan != 1).ToList();
             return View(getAllTextTo);
         }
 
@@ -46,7 +46,14 @@ namespace ManagementDispatch.Controllers
                 var fileName = Path.GetFileName(uploadFile.FileName);
                 //Luu duong dan File
                 var path = Path.Combine(Server.MapPath("~/FileDocument"), fileName);
+                if (System.IO.File.Exists(path))
+                    ViewBag.Thongbao = "Hình ảnh đã tồn tại";
+                else
+                    uploadFile.SaveAs(path);//Luu file vao duong dan
                 item.File = fileName;
+                item.NgayGui = DateTime.Parse(formCollection["NgayGui"]);
+                item.NgayNhan = DateTime.Parse(formCollection["NgayNhan"]);
+
                 _data.CongVanDens.InsertOnSubmit(item);
                 _data.SubmitChanges();
                 return RedirectToAction("Index");
@@ -56,6 +63,23 @@ namespace ManagementDispatch.Controllers
             {
                 return View();
             }
+        }
+        public FileResult Download(string fileName)
+        {
+
+            string contentType = string.Empty;
+
+            if (Path.GetExtension(fileName) == ".txt")
+            {
+                contentType = "application/txt";
+            }
+
+            else if (Path.GetExtension(fileName) == ".pdf")
+            {
+                contentType = "application/pdf";
+            }
+            string fullPath = Path.Combine(Server.MapPath("~/FileDocument/"), fileName);
+            return File(fullPath,contentType,fileName);
         }
     }
 }

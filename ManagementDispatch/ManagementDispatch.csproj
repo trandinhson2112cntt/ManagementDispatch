@@ -174,6 +174,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="FileDocument\a6ec6c3d206d051f.txt" />
+    <Content Include="FileDocument\Tawkto.txt" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -1062,7 +1064,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="FileDocument\" />
     <Folder Include="ImageScan\" />
   </ItemGroup>
   <ItemGroup>
