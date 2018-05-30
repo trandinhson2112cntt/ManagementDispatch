@@ -8,23 +8,23 @@ using System.Web.Mvc;
 
 namespace ManagementDispatch.Controllers
 {
-    public class ManageTextToController : Controller
+    public class ManageTextGoController : Controller
     {
         // GET: Text
         DataBaseDataContext _data = new DataBaseDataContext();
         public ActionResult Index()
         {
-            var getAllTextTo = _data.CongVanDens.Where(c => c.IDLoaiCongVan != 1).ToList();
+            var getAllTextTo = _data.CongVanDis.Where(c => c.IDLoaiCongVan != 1).ToList();
             return View(getAllTextTo);
         }
 
         [HttpGet]
-        public ActionResult AddTextTo()
+        public ActionResult AddTextGo()
         {
             ViewBag.IDLoaiCongVan = new SelectList(_data.LoaiCongVans.ToList().OrderBy(n => n.TenLoaiCongVan), "IDLoaiCongVan", "TenLoaiCongVan");
-            ViewBag.IDPhongBan = new SelectList(_data.PhongBans.ToList().OrderBy(n => n.TenPhongBan), "IDPhongBan", "TenPhongBan");
             ViewBag.IDDonViGui = new SelectList(_data.DonVis.ToList().OrderBy(n => n.TenDonVi), "IDDonVi", "TenDonVi");
             ViewBag.IDDonViNhan = new SelectList(_data.DonVis.ToList().OrderBy(n => n.TenDonVi), "IDDonVi", "TenDonVi");
+            ViewBag.IDCongVanDen = new SelectList(_data.CongVanDens.ToList().OrderBy(n => n.IDCongVanDen), "IDCongVanDen", "IDCongVanDen");
 
             return View();
         }
@@ -32,12 +32,12 @@ namespace ManagementDispatch.Controllers
 
 
         [HttpPost]
-        public ActionResult AddTextTo(CongVanDen item, FormCollection formCollection, HttpPostedFileBase uploadFile)
+        public ActionResult AddTextGo(CongVanDi item, FormCollection formCollection, HttpPostedFileBase uploadFile)
         {
             ViewBag.IDLoaiCongVan = new SelectList(_data.LoaiCongVans.ToList().OrderBy(n => n.TenLoaiCongVan), "IDLoaiCongVan", "TenLoaiCongVan");
-            ViewBag.IDPhongBan = new SelectList(_data.PhongBans.ToList().OrderBy(n => n.TenPhongBan), "IDPhongBan", "TenPhongBan");
             ViewBag.IDDonViGui = new SelectList(_data.DonVis.ToList().OrderBy(n => n.TenDonVi), "IDDonVi", "TenDonVi");
             ViewBag.IDDonViNhan = new SelectList(_data.DonVis.ToList().OrderBy(n => n.TenDonVi), "IDDonVi", "TenDonVi");
+            ViewBag.IDCongVanDen = new SelectList(_data.CongVanDens.ToList().OrderBy(n => n.IDCongVanDen), "IDCongVanDen", "IDCongVanDen");
 
             try
             {
@@ -52,9 +52,8 @@ namespace ManagementDispatch.Controllers
                     uploadFile.SaveAs(path);//Luu file vao duong dan
                 item.File = fileName;
                 item.NgayGui = DateTime.Parse(formCollection["NgayGui"]);
-                item.NgayNhan = DateTime.Parse(formCollection["NgayNhan"]);
-
-                _data.CongVanDens.InsertOnSubmit(item);
+                item.ThoiHanHoanThanh = DateTime.Parse(formCollection["ThoiHanHoanThanh"]);
+                _data.CongVanDis.InsertOnSubmit(item);
                 _data.SubmitChanges();
                 return RedirectToAction("Index");
 
@@ -77,27 +76,39 @@ namespace ManagementDispatch.Controllers
             else if (Path.GetExtension(fileName) == ".pdf")
             {
                 contentType = "application/pdf";
+            }else if (Path.GetExtension(fileName) == ".doc")
+            {
+                contentType = "application/msword";
+            }else if (Path.GetExtension(fileName) == ".docx")
+            {
+                contentType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+            }
+            else
+            {
+                contentType = "unknown/unknown";
             }
             string fullPath = Path.Combine(Server.MapPath("~/FileDocument/"), fileName);
             return File(fullPath, contentType, fileName);
         }
 
         [HttpGet]
-        public ActionResult EditTextTo(string id)
+        public ActionResult EditTextGo(string id)
         {
             ViewBag.IDLoaiCongVan = new SelectList(_data.LoaiCongVans.ToList().OrderBy(n => n.TenLoaiCongVan), "IDLoaiCongVan", "TenLoaiCongVan");
             ViewBag.IDPhongBan = new SelectList(_data.PhongBans.ToList().OrderBy(n => n.TenPhongBan), "IDPhongBan", "TenPhongBan");
             ViewBag.IDDonViGui = new SelectList(_data.DonVis.ToList().OrderBy(n => n.TenDonVi), "IDDonVi", "TenDonVi");
             ViewBag.IDDonViNhan = new SelectList(_data.DonVis.ToList().OrderBy(n => n.TenDonVi), "IDDonVi", "TenDonVi");
+            ViewBag.IDCongVanDen = new SelectList(_data.CongVanDens.ToList().OrderBy(n => n.IDCongVanDen), "IDCongVanDen", "IDCongVanDen");
 
-            CongVanDen getTextTo = _data.CongVanDens.SingleOrDefault(c => c.IDCongVanDen == id);
+            CongVanDi getTextTo = _data.CongVanDis.SingleOrDefault(c => c.IDCongVanDi == id);
             return View(getTextTo);
         }
         [HttpPost]
-        public ActionResult EditTextTo(string id, FormCollection formCollection, HttpPostedFileBase uploadFile)
+        public ActionResult EditTextGo(string id, FormCollection formCollection, HttpPostedFileBase uploadFile)
         {
-            CongVanDen getTextTo = _data.CongVanDens.SingleOrDefault(c => c.IDCongVanDen == id);
-           
+            CongVanDi getTextTo = _data.CongVanDis.SingleOrDefault(c => c.IDCongVanDi == id);
+
+
             if (ModelState.IsValid)
             {
 
@@ -126,25 +137,21 @@ namespace ManagementDispatch.Controllers
 
             }
             int idLoaiCongVan = int.Parse(formCollection["IDLoaiCongVan"]);
-            int idPhongBan = int.Parse(formCollection["IDPhongBan"]);
             int idDonViGui = int.Parse(formCollection["IDDonViGui"]);
             int idDonViNhan = int.Parse(formCollection["IDDonViNhan"]);
-            string noiDung = formCollection["NoiDung"];
+            string noiDung = formCollection["NoiDungCongViec"];
             DateTime ngayGui = DateTime.Parse(formCollection["NgayGui"]);
-            DateTime ngayNhan = DateTime.Parse(formCollection["NgayNhan"]);
+            DateTime ngayNhan = DateTime.Parse(formCollection["ThoiHanHoanThanh"]);
             string tenNguoiGui = formCollection["TenNguoiGui"];
-            string tenNguoiNhan = formCollection["TenNguoiNhan"];
             string anhScan = formCollection["AnhScan"];
 
             getTextTo.IDLoaiCongVan = idLoaiCongVan;
-            getTextTo.NoiDung = noiDung;
+            getTextTo.NoiDungCongViec = noiDung;
             getTextTo.NgayGui = ngayGui;
-            getTextTo.NgayNhan = ngayNhan;
+            getTextTo.ThoiHanHoanThanh = ngayNhan;
             getTextTo.TenNguoiGui = tenNguoiGui;
-            getTextTo.IDPhongBan = idPhongBan;
             getTextTo.IDDonViGui = idDonViGui;
             getTextTo.IDDonViNhan = idDonViNhan;
-            getTextTo.TenNguoiNhan = tenNguoiNhan;
             getTextTo.AnhScan = anhScan;
 
             UpdateModel(getTextTo);

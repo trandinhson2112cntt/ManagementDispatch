@@ -157,6 +157,7 @@
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManageTextGoController.cs" />
     <Compile Include="Controllers\ManageTextToController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1061,6 +1062,9 @@
     <Content Include="TemplateAdmin\plugin\ckfinder\skins\bootstrap\assets\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="TemplateAdmin\plugin\ckfinder\userfiles\.htaccess" />
     <Content Include="Views\ManageTextTo\Index.cshtml" />
+    <Content Include="Views\ManageTextTo\EditTextTo.cshtml" />
+    <Content Include="Views\ManageTextGo\Index.cshtml" />
+    <Content Include="Views\ManageTextGo\AddTextGo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

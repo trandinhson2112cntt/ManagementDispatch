@@ -1,9 +1,9 @@
 ﻿@model ManagementDispatch.Models.CongVanDen
 @{
-    ViewBag.Title = "Thêm mới công văn";
+    ViewBag.Title = "Sửa công văn";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<p style="font-size:30px">Thêm mới công văn</p>
+<p style="font-size:30px">Sửa công văn</p>
 <hr />
 @section jsFooter{
     <script>
@@ -51,7 +51,7 @@
         }
 </style>
 
-@using (Html.BeginForm("AddTextTo", "ManageTextTo", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("EditTextTo", "ManageTextTo", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -60,14 +60,14 @@
         <div class="form-group">
             @Html.LabelFor(model => model.IDCongVanDen, "Số hiệu CV:", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.IDCongVanDen, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.IDCongVanDen, new { htmlAttributes = new { @class = "form-control" , disabled = "true" } })
                 @Html.ValidationMessageFor(model => model.IDCongVanDen, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.IDLoaiCongVan, "Loại công văn:", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("IDLoaiCongVan")
+                @Html.DropDownListFor(model => model.IDLoaiCongVan,(IEnumerable<SelectListItem>)ViewBag.IDLoaiCongVan)
             </div>
         </div>
 
@@ -83,7 +83,7 @@
             @Html.LabelFor(model => model.NgayGui, "Ngày gửi:", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div id="datepicker" class="input-group date" data-date-format="dd-mm-yyyy">
-                    <input class="form-control" readonly="" type="text" name="NgayGui"> <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                    <input class="form-control" readonly="" type="text" name="NgayGui" value="@Model.NgayGui"> <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                 </div>
 
                 @Html.ValidationMessageFor(model => model.NgayGui, "", new { @class = "text-danger" })
@@ -156,7 +156,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Tạo mới" class="btn btn-default" />
+                <input type="submit" value="Sửa" class="btn btn-default" />
             </div>
         </div>
     </div>

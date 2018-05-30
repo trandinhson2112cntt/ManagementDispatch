@@ -1417,9 +1417,11 @@ namespace ManagementDispatch.Models
 		
 		private string _IDCongVanDen;
 		
-		private System.Nullable<int> _IDDonVi;
+		private System.Nullable<int> _IDDonViGui;
 		
-		private string _NoiDung;
+		private System.Nullable<int> _IDDonViNhan;
+		
+		private string _NoiDungCongViec;
 		
 		private System.Nullable<System.DateTime> _NgayGui;
 		
@@ -1432,6 +1434,8 @@ namespace ManagementDispatch.Models
 		private EntityRef<CongVanDen> _CongVanDen;
 		
 		private EntityRef<DonVi> _DonVi;
+		
+		private EntityRef<DonVi> _DonVi1;
 		
 		private EntityRef<LoaiCongVan> _LoaiCongVan;
 		
@@ -1447,10 +1451,12 @@ namespace ManagementDispatch.Models
     partial void OnTenNguoiGuiChanged();
     partial void OnIDCongVanDenChanging(string value);
     partial void OnIDCongVanDenChanged();
-    partial void OnIDDonViChanging(System.Nullable<int> value);
-    partial void OnIDDonViChanged();
-    partial void OnNoiDungChanging(string value);
-    partial void OnNoiDungChanged();
+    partial void OnIDDonViGuiChanging(System.Nullable<int> value);
+    partial void OnIDDonViGuiChanged();
+    partial void OnIDDonViNhanChanging(System.Nullable<int> value);
+    partial void OnIDDonViNhanChanged();
+    partial void OnNoiDungCongViecChanging(string value);
+    partial void OnNoiDungCongViecChanged();
     partial void OnNgayGuiChanging(System.Nullable<System.DateTime> value);
     partial void OnNgayGuiChanged();
     partial void OnThoiHanHoanThanhChanging(System.Nullable<System.DateTime> value);
@@ -1465,6 +1471,7 @@ namespace ManagementDispatch.Models
 		{
 			this._CongVanDen = default(EntityRef<CongVanDen>);
 			this._DonVi = default(EntityRef<DonVi>);
+			this._DonVi1 = default(EntityRef<DonVi>);
 			this._LoaiCongVan = default(EntityRef<LoaiCongVan>);
 			OnCreated();
 		}
@@ -1557,46 +1564,70 @@ namespace ManagementDispatch.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDDonVi", DbType="Int")]
-		public System.Nullable<int> IDDonVi
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDDonViGui", DbType="Int")]
+		public System.Nullable<int> IDDonViGui
 		{
 			get
 			{
-				return this._IDDonVi;
+				return this._IDDonViGui;
 			}
 			set
 			{
-				if ((this._IDDonVi != value))
+				if ((this._IDDonViGui != value))
 				{
 					if (this._DonVi.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
-					this.OnIDDonViChanging(value);
+					this.OnIDDonViGuiChanging(value);
 					this.SendPropertyChanging();
-					this._IDDonVi = value;
-					this.SendPropertyChanged("IDDonVi");
-					this.OnIDDonViChanged();
+					this._IDDonViGui = value;
+					this.SendPropertyChanged("IDDonViGui");
+					this.OnIDDonViGuiChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NoiDung", DbType="NText", UpdateCheck=UpdateCheck.Never)]
-		public string NoiDung
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDDonViNhan", DbType="Int")]
+		public System.Nullable<int> IDDonViNhan
 		{
 			get
 			{
-				return this._NoiDung;
+				return this._IDDonViNhan;
 			}
 			set
 			{
-				if ((this._NoiDung != value))
+				if ((this._IDDonViNhan != value))
 				{
-					this.OnNoiDungChanging(value);
+					if (this._DonVi1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIDDonViNhanChanging(value);
 					this.SendPropertyChanging();
-					this._NoiDung = value;
-					this.SendPropertyChanged("NoiDung");
-					this.OnNoiDungChanged();
+					this._IDDonViNhan = value;
+					this.SendPropertyChanged("IDDonViNhan");
+					this.OnIDDonViNhanChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NoiDungCongViec", DbType="NText", UpdateCheck=UpdateCheck.Never)]
+		public string NoiDungCongViec
+		{
+			get
+			{
+				return this._NoiDungCongViec;
+			}
+			set
+			{
+				if ((this._NoiDungCongViec != value))
+				{
+					this.OnNoiDungCongViecChanging(value);
+					this.SendPropertyChanging();
+					this._NoiDungCongViec = value;
+					this.SendPropertyChanged("NoiDungCongViec");
+					this.OnNoiDungCongViecChanged();
 				}
 			}
 		}
@@ -1715,7 +1746,7 @@ namespace ManagementDispatch.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DonVi_CongVanDi", Storage="_DonVi", ThisKey="IDDonVi", OtherKey="IDDonVi", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DonVi_CongVanDi", Storage="_DonVi", ThisKey="IDDonViGui", OtherKey="IDDonVi", IsForeignKey=true)]
 		public DonVi DonVi
 		{
 			get
@@ -1738,13 +1769,47 @@ namespace ManagementDispatch.Models
 					if ((value != null))
 					{
 						value.CongVanDis.Add(this);
-						this._IDDonVi = value.IDDonVi;
+						this._IDDonViGui = value.IDDonVi;
 					}
 					else
 					{
-						this._IDDonVi = default(Nullable<int>);
+						this._IDDonViGui = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("DonVi");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DonVi_CongVanDi1", Storage="_DonVi1", ThisKey="IDDonViNhan", OtherKey="IDDonVi", IsForeignKey=true)]
+		public DonVi DonVi1
+		{
+			get
+			{
+				return this._DonVi1.Entity;
+			}
+			set
+			{
+				DonVi previousValue = this._DonVi1.Entity;
+				if (((previousValue != value) 
+							|| (this._DonVi1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._DonVi1.Entity = null;
+						previousValue.CongVanDis1.Remove(this);
+					}
+					this._DonVi1.Entity = value;
+					if ((value != null))
+					{
+						value.CongVanDis1.Add(this);
+						this._IDDonViNhan = value.IDDonVi;
+					}
+					else
+					{
+						this._IDDonViNhan = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("DonVi1");
 				}
 			}
 		}
@@ -1824,6 +1889,8 @@ namespace ManagementDispatch.Models
 		
 		private EntitySet<CongVanDi> _CongVanDis;
 		
+		private EntitySet<CongVanDi> _CongVanDis1;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -1843,6 +1910,7 @@ namespace ManagementDispatch.Models
 			this._CongVanDens = new EntitySet<CongVanDen>(new Action<CongVanDen>(this.attach_CongVanDens), new Action<CongVanDen>(this.detach_CongVanDens));
 			this._CongVanDens1 = new EntitySet<CongVanDen>(new Action<CongVanDen>(this.attach_CongVanDens1), new Action<CongVanDen>(this.detach_CongVanDens1));
 			this._CongVanDis = new EntitySet<CongVanDi>(new Action<CongVanDi>(this.attach_CongVanDis), new Action<CongVanDi>(this.detach_CongVanDis));
+			this._CongVanDis1 = new EntitySet<CongVanDi>(new Action<CongVanDi>(this.attach_CongVanDis1), new Action<CongVanDi>(this.detach_CongVanDis1));
 			OnCreated();
 		}
 		
@@ -1952,7 +2020,7 @@ namespace ManagementDispatch.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DonVi_CongVanDi", Storage="_CongVanDis", ThisKey="IDDonVi", OtherKey="IDDonVi")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DonVi_CongVanDi", Storage="_CongVanDis", ThisKey="IDDonVi", OtherKey="IDDonViGui")]
 		public EntitySet<CongVanDi> CongVanDis
 		{
 			get
@@ -1962,6 +2030,19 @@ namespace ManagementDispatch.Models
 			set
 			{
 				this._CongVanDis.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DonVi_CongVanDi1", Storage="_CongVanDis1", ThisKey="IDDonVi", OtherKey="IDDonViNhan")]
+		public EntitySet<CongVanDi> CongVanDis1
+		{
+			get
+			{
+				return this._CongVanDis1;
+			}
+			set
+			{
+				this._CongVanDis1.Assign(value);
 			}
 		}
 		
@@ -2019,6 +2100,18 @@ namespace ManagementDispatch.Models
 		{
 			this.SendPropertyChanging();
 			entity.DonVi = null;
+		}
+		
+		private void attach_CongVanDis1(CongVanDi entity)
+		{
+			this.SendPropertyChanging();
+			entity.DonVi1 = this;
+		}
+		
+		private void detach_CongVanDis1(CongVanDi entity)
+		{
+			this.SendPropertyChanging();
+			entity.DonVi1 = null;
 		}
 	}
 	
