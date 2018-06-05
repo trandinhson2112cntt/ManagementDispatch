@@ -1,0 +1,37 @@
+﻿@model IEnumerable<ManagementDispatch.Models.NhatKyHeThong>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p style="font-size:30px">Nhật ký hệ thống</p>
+<hr />
+<div class="col-lg-12">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <table width="100%" class="table table-hover" id="dataTables-example">
+                <thead>
+                    <tr>
+                        <th>Tên nhân viên</th>
+                        <th>Nội dung</th>
+                        <th>Ngày giờ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="center">@item.NhanVien.HoTen</td>
+                            <td class="center">@item.NoiDungNhatKy</td>
+                            <td class="center">@item.NgayGio</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- /.panel -->
+</div>
+
+
+

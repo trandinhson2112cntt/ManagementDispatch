@@ -14,7 +14,7 @@ namespace ManagementDispatch.Controllers
         DataBaseDataContext _data = new DataBaseDataContext();
         public ActionResult Index()
         {
-            var getAllTextTo = _data.CongVanDens.Where(c => c.IDLoaiCongVan != 1).ToList();
+            var getAllTextTo = _data.CongVanDens.Where(c => c.BaoMat==false).ToList();
             return View(getAllTextTo);
         }
 
@@ -56,6 +56,16 @@ namespace ManagementDispatch.Controllers
 
                 _data.CongVanDens.InsertOnSubmit(item);
                 _data.SubmitChanges();
+
+                string writeLog = "Thêm công văn đến: " + item.IDCongVanDen;
+                NhanVien admin = (NhanVien)Session["Admin"];
+                NhatKyHeThong log = new NhatKyHeThong();
+                log.IDNhanVien = admin.IDNhanVien;
+                log.NoiDungNhatKy = writeLog;
+                log.NgayGio = DateTime.Now;
+                _data.NhatKyHeThongs.InsertOnSubmit(log);
+                _data.SubmitChanges();
+
                 return RedirectToAction("Index");
 
             }
@@ -68,7 +78,6 @@ namespace ManagementDispatch.Controllers
         {
 
             string contentType = string.Empty;
-
             if (Path.GetExtension(fileName) == ".txt")
             {
                 contentType = "application/txt";
@@ -77,6 +86,18 @@ namespace ManagementDispatch.Controllers
             else if (Path.GetExtension(fileName) == ".pdf")
             {
                 contentType = "application/pdf";
+            }
+            else if (Path.GetExtension(fileName) == ".doc")
+            {
+                contentType = "application/msword";
+            }
+            else if (Path.GetExtension(fileName) == ".docx")
+            {
+                contentType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+            }
+            else
+            {
+                contentType = "unknown/unknown";
             }
             string fullPath = Path.Combine(Server.MapPath("~/FileDocument/"), fileName);
             return File(fullPath, contentType, fileName);
@@ -149,7 +170,14 @@ namespace ManagementDispatch.Controllers
 
             UpdateModel(getTextTo);
             _data.SubmitChanges();
-
+            string writeLog = "Sửa công văn đi: " + getTextTo.IDCongVanDen;
+            NhanVien admin = (NhanVien)Session["Admin"];
+            NhatKyHeThong log = new NhatKyHeThong();
+            log.IDNhanVien = admin.IDNhanVien;
+            log.NoiDungNhatKy = writeLog;
+            log.NgayGio = DateTime.Now;
+            _data.NhatKyHeThongs.InsertOnSubmit(log);
+            _data.SubmitChanges();
             return RedirectToAction("Index");
         }
     }

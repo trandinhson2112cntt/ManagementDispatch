@@ -40,6 +40,16 @@ namespace ManagementDispatch.Controllers
                     item.isDelete = true;
                     _data.DonVis.InsertOnSubmit(item);
                     _data.SubmitChanges();
+
+                    string writeLog = "Thêm đơn vị mới: " + item.TenDonVi;
+                    NhanVien admin = (NhanVien)Session["Admin"];
+                    NhatKyHeThong log = new NhatKyHeThong();
+                    log.IDNhanVien = admin.IDNhanVien;
+                    log.NoiDungNhatKy = writeLog;
+                    log.NgayGio = DateTime.Now;
+                    _data.NhatKyHeThongs.InsertOnSubmit(log);
+                    _data.SubmitChanges();
+
                     return RedirectToAction("Index");
                 }
             }
@@ -60,10 +70,22 @@ namespace ManagementDispatch.Controllers
             try
             {
                 DonVi getAgency = _data.DonVis.SingleOrDefault(n => n.IDDonVi == id);
+                string writeLog = "Sửa đơn vị: " + getAgency.TenDonVi;
+
                 getAgency.TenDonVi = formCollection["InputName"];
                 getAgency.ThongTin = formCollection["InputInfo"];
                 UpdateModel(getAgency);
                 _data.SubmitChanges();
+
+                writeLog = writeLog + "  =>  " + getAgency.TenDonVi;
+                NhanVien admin = (NhanVien)Session["Admin"];
+                NhatKyHeThong log = new NhatKyHeThong();
+                log.IDNhanVien = admin.IDNhanVien;
+                log.NoiDungNhatKy = writeLog;
+                log.NgayGio = DateTime.Now;
+                _data.NhatKyHeThongs.InsertOnSubmit(log);
+                _data.SubmitChanges();
+
                 return RedirectToAction("Index");
             }
             catch

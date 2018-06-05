@@ -43,7 +43,7 @@
                                 <td class="center">@item.TenNguoiGui</td>
                                 <td class="center">@item.IDCongVanDen</td>
                                 <td class="center">@item.NoiDungCongViec</td>
-                                <td class="center">@item.NgayGui</td>
+                                <td class="center">@item.NgayGui.ToString(string.Format("dd/MM/yyyy"))</td>
                                 <td class="center">@item.ThoiHanHoanThanh</td>
                                 <td class="center">@Html.ActionLink("Download", "Download", new { fileName = item.File })</td>
                                 <td class="center"> <img src="@Url.Content("~/"+item.AnhScan)" width="60px"></td>

@@ -897,9 +897,9 @@ namespace ManagementDispatch.Models
 		
 		private string _NoiDung;
 		
-		private System.Nullable<System.DateTime> _NgayGui;
+		private System.DateTime _NgayGui;
 		
-		private System.Nullable<System.DateTime> _NgayNhan;
+		private System.DateTime _NgayNhan;
 		
 		private string _TenNguoiGui;
 		
@@ -914,6 +914,8 @@ namespace ManagementDispatch.Models
 		private string _File;
 		
 		private string _AnhScan;
+		
+		private bool _BaoMat;
 		
 		private EntitySet<CongVanDi> _CongVanDis;
 		
@@ -935,9 +937,9 @@ namespace ManagementDispatch.Models
     partial void OnIDLoaiCongVanChanged();
     partial void OnNoiDungChanging(string value);
     partial void OnNoiDungChanged();
-    partial void OnNgayGuiChanging(System.Nullable<System.DateTime> value);
+    partial void OnNgayGuiChanging(System.DateTime value);
     partial void OnNgayGuiChanged();
-    partial void OnNgayNhanChanging(System.Nullable<System.DateTime> value);
+    partial void OnNgayNhanChanging(System.DateTime value);
     partial void OnNgayNhanChanged();
     partial void OnTenNguoiGuiChanging(string value);
     partial void OnTenNguoiGuiChanged();
@@ -953,6 +955,8 @@ namespace ManagementDispatch.Models
     partial void OnFileChanged();
     partial void OnAnhScanChanging(string value);
     partial void OnAnhScanChanged();
+    partial void OnBaoMatChanging(bool value);
+    partial void OnBaoMatChanged();
     #endregion
 		
 		public CongVanDen()
@@ -1029,8 +1033,8 @@ namespace ManagementDispatch.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NgayGui", DbType="DateTime")]
-		public System.Nullable<System.DateTime> NgayGui
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NgayGui", DbType="DateTime NOT NULL")]
+		public System.DateTime NgayGui
 		{
 			get
 			{
@@ -1049,8 +1053,8 @@ namespace ManagementDispatch.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NgayNhan", DbType="DateTime")]
-		public System.Nullable<System.DateTime> NgayNhan
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NgayNhan", DbType="DateTime NOT NULL")]
+		public System.DateTime NgayNhan
 		{
 			get
 			{
@@ -1217,6 +1221,26 @@ namespace ManagementDispatch.Models
 					this._AnhScan = value;
 					this.SendPropertyChanged("AnhScan");
 					this.OnAnhScanChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BaoMat", DbType="Bit NOT NULL")]
+		public bool BaoMat
+		{
+			get
+			{
+				return this._BaoMat;
+			}
+			set
+			{
+				if ((this._BaoMat != value))
+				{
+					this.OnBaoMatChanging(value);
+					this.SendPropertyChanging();
+					this._BaoMat = value;
+					this.SendPropertyChanged("BaoMat");
+					this.OnBaoMatChanged();
 				}
 			}
 		}
@@ -1423,13 +1447,15 @@ namespace ManagementDispatch.Models
 		
 		private string _NoiDungCongViec;
 		
-		private System.Nullable<System.DateTime> _NgayGui;
+		private System.DateTime _NgayGui;
 		
 		private System.Nullable<System.DateTime> _ThoiHanHoanThanh;
 		
 		private string _File;
 		
 		private string _AnhScan;
+		
+		private bool _BaoMat;
 		
 		private EntityRef<CongVanDen> _CongVanDen;
 		
@@ -1457,7 +1483,7 @@ namespace ManagementDispatch.Models
     partial void OnIDDonViNhanChanged();
     partial void OnNoiDungCongViecChanging(string value);
     partial void OnNoiDungCongViecChanged();
-    partial void OnNgayGuiChanging(System.Nullable<System.DateTime> value);
+    partial void OnNgayGuiChanging(System.DateTime value);
     partial void OnNgayGuiChanged();
     partial void OnThoiHanHoanThanhChanging(System.Nullable<System.DateTime> value);
     partial void OnThoiHanHoanThanhChanged();
@@ -1465,6 +1491,8 @@ namespace ManagementDispatch.Models
     partial void OnFileChanged();
     partial void OnAnhScanChanging(string value);
     partial void OnAnhScanChanged();
+    partial void OnBaoMatChanging(bool value);
+    partial void OnBaoMatChanged();
     #endregion
 		
 		public CongVanDi()
@@ -1476,7 +1504,7 @@ namespace ManagementDispatch.Models
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDCongVanDi", DbType="NChar(10) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDCongVanDi", DbType="VarChar(20) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
 		public string IDCongVanDi
 		{
 			get
@@ -1632,8 +1660,8 @@ namespace ManagementDispatch.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NgayGui", DbType="DateTime")]
-		public System.Nullable<System.DateTime> NgayGui
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NgayGui", DbType="DateTime NOT NULL")]
+		public System.DateTime NgayGui
 		{
 			get
 			{
@@ -1652,7 +1680,7 @@ namespace ManagementDispatch.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ThoiHanHoanThanh", DbType="DateTime")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ThoiHanHoanThanh", DbType="Date")]
 		public System.Nullable<System.DateTime> ThoiHanHoanThanh
 		{
 			get
@@ -1708,6 +1736,26 @@ namespace ManagementDispatch.Models
 					this._AnhScan = value;
 					this.SendPropertyChanged("AnhScan");
 					this.OnAnhScanChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BaoMat", DbType="Bit NOT NULL")]
+		public bool BaoMat
+		{
+			get
+			{
+				return this._BaoMat;
+			}
+			set
+			{
+				if ((this._BaoMat != value))
+				{
+					this.OnBaoMatChanging(value);
+					this.SendPropertyChanging();
+					this._BaoMat = value;
+					this.SendPropertyChanged("BaoMat");
+					this.OnBaoMatChanged();
 				}
 			}
 		}
@@ -2297,13 +2345,13 @@ namespace ManagementDispatch.Models
 		
 		private string _Email;
 		
-		private System.Nullable<System.DateTime> _NgaySinh;
+		private System.DateTime _NgaySinh;
 		
 		private string _SDT;
 		
 		private System.Nullable<int> _IDPhongBan;
 		
-		private System.Nullable<bool> _Lock;
+		private bool _Lock;
 		
 		private EntitySet<NhatKyHeThong> _NhatKyHeThongs;
 		
@@ -2323,13 +2371,13 @@ namespace ManagementDispatch.Models
     partial void OnPasswordChanged();
     partial void OnEmailChanging(string value);
     partial void OnEmailChanged();
-    partial void OnNgaySinhChanging(System.Nullable<System.DateTime> value);
+    partial void OnNgaySinhChanging(System.DateTime value);
     partial void OnNgaySinhChanged();
     partial void OnSDTChanging(string value);
     partial void OnSDTChanged();
     partial void OnIDPhongBanChanging(System.Nullable<int> value);
     partial void OnIDPhongBanChanged();
-    partial void OnLockChanging(System.Nullable<bool> value);
+    partial void OnLockChanging(bool value);
     partial void OnLockChanged();
     #endregion
 		
@@ -2440,8 +2488,8 @@ namespace ManagementDispatch.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NgaySinh", DbType="Date")]
-		public System.Nullable<System.DateTime> NgaySinh
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NgaySinh", DbType="Date NOT NULL")]
+		public System.DateTime NgaySinh
 		{
 			get
 			{
@@ -2504,8 +2552,8 @@ namespace ManagementDispatch.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Lock", DbType="Bit")]
-		public System.Nullable<bool> Lock
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Lock", DbType="Bit NOT NULL")]
+		public bool Lock
 		{
 			get
 			{

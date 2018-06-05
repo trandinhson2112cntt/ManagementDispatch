@@ -40,8 +40,8 @@
                             <td class="center">@item.IDCongVanDen</td>
                             <td class="center">@item.LoaiCongVan.TenLoaiCongVan</td>
                             <td class="center">@item.NoiDung</td>
-                            <td class="center">@item.NgayGui</td>
-                            <td class="center">@item.NgayNhan</td>
+                            <td class="center">@item.NgayGui.ToString(string.Format("dd/MM/yyyy"))</td>
+                            <td class="center">@item.NgayNhan.ToString(string.Format("dd/MM/yyyy"))</td>
                             <td class="center">@item.TenNguoiGui</td>
                             <td class="center">@item.TenNguoiNhan</td>
                             <td class="center">@item.PhongBan.TenPhongBan</td>

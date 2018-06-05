@@ -1,0 +1,50 @@
+﻿@model ManagementDispatch.Models.NhanVien
+@{
+    ViewBag.Title = "Thêm mới nhân viên";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p style="font-size:30px">Thêm mới nhân viên</p>
+<hr />
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                @ViewBag.Validate
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-6">
+                        @using (Html.BeginForm("AddAdmin", "Admin", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <form role="form">
+                                <div class="form-group">
+                                    <label>Họ tên:</label>
+                                    <input class="form-control" placeholder="Họ tên" name="FullName" id="FullName">
+                                    <label>Username:</label>
+                                    <input class="form-control" placeholder="Username" name="Username" id="Username">
+                                    <label>Password:</label>
+                                    <input class="form-control" placeholder="Password" name="Password" id="Password">
+                                    <label>Email:</label>
+                                    <input class="form-control" placeholder="Email" name="Email" id="Email">
+                                    <label>Ngày sinh:</label>
+                                    <input type="date" class="form-control" placeholder="Ngày sinh" name="Birthday" id="Birthday">
+                                    <label>Số điện thoại:</label>
+                                    <input class="form-control" placeholder="Số điện thoại" name="PhoneNumber" id="PhoneNumber">
+                                    <label>Phòng ban:</label>
+                                    @Html.DropDownList("IDPhongBan", null, new { @class = "form-control" })
+
+
+                                </div>
+                                <button type="submit" class="btn btn-default">Thêm mới</button>
+                            </form>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

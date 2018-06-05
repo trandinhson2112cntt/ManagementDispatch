@@ -39,6 +39,18 @@ namespace ManagementDispatch.Controllers
                     item.isDelete = true;
                     _data.LoaiCongVans.InsertOnSubmit(item);
                     _data.SubmitChanges();
+
+
+                    string writeLog = "Thêm loại văn bản mới: " + item.TenLoaiCongVan;
+                    NhanVien admin = (NhanVien)Session["Admin"];
+                    NhatKyHeThong log = new NhatKyHeThong();
+                    log.IDNhanVien = admin.IDNhanVien;
+                    log.NoiDungNhatKy = writeLog;
+                    log.NgayGio = DateTime.Now;
+                    _data.NhatKyHeThongs.InsertOnSubmit(log);
+                    _data.SubmitChanges();
+
+
                     return RedirectToAction("Index");
                 }
             }
@@ -59,9 +71,20 @@ namespace ManagementDispatch.Controllers
             try
             {
                 LoaiCongVan getCategory = _data.LoaiCongVans.SingleOrDefault(n => n.IDLoaiCongVan == id);
+                string writeLog = "Sửa loại văn bản: " + getCategory.TenLoaiCongVan;
                 getCategory.TenLoaiCongVan = formCollection["InputName"];
                 UpdateModel(getCategory);
                 _data.SubmitChanges();
+
+                writeLog = writeLog + "  =>  " + getCategory.TenLoaiCongVan;
+                NhanVien admin = (NhanVien)Session["Admin"];
+                NhatKyHeThong log = new NhatKyHeThong();
+                log.IDNhanVien = admin.IDNhanVien;
+                log.NoiDungNhatKy = writeLog;
+                log.NgayGio = DateTime.Now;
+                _data.NhatKyHeThongs.InsertOnSubmit(log);
+                _data.SubmitChanges();
+
                 return RedirectToAction("Index");
             }
             catch

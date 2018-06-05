@@ -153,12 +153,14 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AgencyController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageTextGoController.cs" />
     <Compile Include="Controllers\ManageTextToController.cs" />
+    <Compile Include="Controllers\SystemLogController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -204,6 +206,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="TemplateAdmin\controller\admincontroller.js" />
     <Content Include="TemplateAdmin\controller\agencyController.js" />
     <Content Include="TemplateAdmin\controller\categoryController.js" />
     <Content Include="TemplateAdmin\controller\departmentController.js" />
@@ -1065,6 +1068,13 @@
     <Content Include="Views\ManageTextTo\EditTextTo.cshtml" />
     <Content Include="Views\ManageTextGo\Index.cshtml" />
     <Content Include="Views\ManageTextGo\AddTextGo.cshtml" />
+    <Content Include="Views\ManageTextGo\EditTextGo.cshtml" />
+    <Content Include="Views\Admin\LoginAdmin.cshtml" />
+    <Content Include="Views\Admin\InfoAdminLogin.cshtml" />
+    <Content Include="Views\Admin\ProfileAdmin.cshtml" />
+    <Content Include="Views\SystemLog\Index.cshtml" />
+    <Content Include="Views\Admin\AddAdmin.cshtml" />
+    <Content Include="Views\Admin\ListAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

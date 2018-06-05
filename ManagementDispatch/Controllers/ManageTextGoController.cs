@@ -14,7 +14,7 @@ namespace ManagementDispatch.Controllers
         DataBaseDataContext _data = new DataBaseDataContext();
         public ActionResult Index()
         {
-            var getAllTextTo = _data.CongVanDis.Where(c => c.IDLoaiCongVan != 1).ToList();
+            var getAllTextTo = _data.CongVanDis.Where(c => c.BaoMat == false).ToList();
             return View(getAllTextTo);
         }
 
@@ -44,17 +44,35 @@ namespace ManagementDispatch.Controllers
                 ViewBag.Validate = " ";
 
                 var fileName = Path.GetFileName(uploadFile.FileName);
-                //Luu duong dan File
-                var path = Path.Combine(Server.MapPath("~/FileDocument"), fileName);
-                if (System.IO.File.Exists(path))
-                    ViewBag.Thongbao = "Hình ảnh đã tồn tại";
+                if (fileName != null)
+                {
+                    var path = Path.Combine(Server.MapPath("~/FileDocument"), fileName);
+                    if (System.IO.File.Exists(path))
+                        ViewBag.Thongbao = "Tập tin đã tồn tại";
+                    else
+                        uploadFile.SaveAs(path);//Luu file vao duong dan
+                    item.File = fileName;
+                }
                 else
-                    uploadFile.SaveAs(path);//Luu file vao duong dan
-                item.File = fileName;
+                {
+                    item.File = "";
+                }
+                //Luu duong dan File
+
                 item.NgayGui = DateTime.Parse(formCollection["NgayGui"]);
                 item.ThoiHanHoanThanh = DateTime.Parse(formCollection["ThoiHanHoanThanh"]);
                 _data.CongVanDis.InsertOnSubmit(item);
                 _data.SubmitChanges();
+
+                string writeLog = "Thêm công văn đi: " + item.IDCongVanDi;
+                NhanVien admin = (NhanVien)Session["Admin"];
+                NhatKyHeThong log = new NhatKyHeThong();
+                log.IDNhanVien = admin.IDNhanVien;
+                log.NoiDungNhatKy = writeLog;
+                log.NgayGio = DateTime.Now;
+                _data.NhatKyHeThongs.InsertOnSubmit(log);
+                _data.SubmitChanges();
+
                 return RedirectToAction("Index");
 
             }
@@ -76,10 +94,12 @@ namespace ManagementDispatch.Controllers
             else if (Path.GetExtension(fileName) == ".pdf")
             {
                 contentType = "application/pdf";
-            }else if (Path.GetExtension(fileName) == ".doc")
+            }
+            else if (Path.GetExtension(fileName) == ".doc")
             {
                 contentType = "application/msword";
-            }else if (Path.GetExtension(fileName) == ".docx")
+            }
+            else if (Path.GetExtension(fileName) == ".docx")
             {
                 contentType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
             }
@@ -100,41 +120,30 @@ namespace ManagementDispatch.Controllers
             ViewBag.IDDonViNhan = new SelectList(_data.DonVis.ToList().OrderBy(n => n.TenDonVi), "IDDonVi", "TenDonVi");
             ViewBag.IDCongVanDen = new SelectList(_data.CongVanDens.ToList().OrderBy(n => n.IDCongVanDen), "IDCongVanDen", "IDCongVanDen");
 
-            CongVanDi getTextTo = _data.CongVanDis.SingleOrDefault(c => c.IDCongVanDi == id);
-            return View(getTextTo);
+            CongVanDi getTextGo = _data.CongVanDis.SingleOrDefault(c => c.IDCongVanDi == id);
+            return View(getTextGo);
         }
         [HttpPost]
         public ActionResult EditTextGo(string id, FormCollection formCollection, HttpPostedFileBase uploadFile)
         {
-            CongVanDi getTextTo = _data.CongVanDis.SingleOrDefault(c => c.IDCongVanDi == id);
-
+            CongVanDi getTextGo = _data.CongVanDis.SingleOrDefault(c => c.IDCongVanDi == id);
 
             if (ModelState.IsValid)
             {
-
-                try
+                if (uploadFile != null)
                 {
-                    if (uploadFile != null)
-                    {
-                        //Luu ten file
-                        var fileName = Path.GetFileName(uploadFile.FileName);
-                        //Luu duong dan File
-                        var path = Path.Combine(Server.MapPath("~/FileDocument"), fileName);
-                        //Kiem tra hinh da ton tai chua\
-                        if (System.IO.File.Exists(path))
-                            ViewBag.Thongbao = "Hình ảnh đã tồn tại";
-                        else
-                            uploadFile.SaveAs(path);//Luu file vao duong dan
+                    //Luu ten file
+                    var fileName = Path.GetFileName(uploadFile.FileName);
+                    //Luu duong dan File
+                    var path = Path.Combine(Server.MapPath("~/FileDocument"), fileName);
+                    //Kiem tra hinh da ton tai chua\
+                    if (System.IO.File.Exists(path))
+                        ViewBag.Thongbao = "Hình ảnh đã tồn tại";
+                    else
+                        uploadFile.SaveAs(path);//Luu file vao duong dan
 
-                        getTextTo.File = fileName;
-                    }
-
+                    getTextGo.File = fileName;
                 }
-                catch (Exception)
-                {
-                    ViewBag.Thongbao = "Vui lòng chọn ảnh cho sản phẩm";
-                }
-
             }
             int idLoaiCongVan = int.Parse(formCollection["IDLoaiCongVan"]);
             int idDonViGui = int.Parse(formCollection["IDDonViGui"]);
@@ -145,17 +154,27 @@ namespace ManagementDispatch.Controllers
             string tenNguoiGui = formCollection["TenNguoiGui"];
             string anhScan = formCollection["AnhScan"];
 
-            getTextTo.IDLoaiCongVan = idLoaiCongVan;
-            getTextTo.NoiDungCongViec = noiDung;
-            getTextTo.NgayGui = ngayGui;
-            getTextTo.ThoiHanHoanThanh = ngayNhan;
-            getTextTo.TenNguoiGui = tenNguoiGui;
-            getTextTo.IDDonViGui = idDonViGui;
-            getTextTo.IDDonViNhan = idDonViNhan;
-            getTextTo.AnhScan = anhScan;
+            getTextGo.IDLoaiCongVan = idLoaiCongVan;
+            getTextGo.NoiDungCongViec = noiDung;
+            getTextGo.NgayGui = ngayGui;
+            getTextGo.ThoiHanHoanThanh = ngayNhan;
+            getTextGo.TenNguoiGui = tenNguoiGui;
+            getTextGo.IDDonViGui = idDonViGui;
+            getTextGo.IDDonViNhan = idDonViNhan;
+            getTextGo.AnhScan = anhScan;
 
-            UpdateModel(getTextTo);
+            UpdateModel(getTextGo);
             _data.SubmitChanges();
+
+            string writeLog = "Sửa công văn đi: " + getTextGo.IDCongVanDi;
+            NhanVien admin = (NhanVien)Session["Admin"];
+            NhatKyHeThong log = new NhatKyHeThong();
+            log.IDNhanVien = admin.IDNhanVien;
+            log.NoiDungNhatKy = writeLog;
+            log.NgayGio = DateTime.Now;
+            _data.NhatKyHeThongs.InsertOnSubmit(log);
+            _data.SubmitChanges();
+
 
             return RedirectToAction("Index");
         }

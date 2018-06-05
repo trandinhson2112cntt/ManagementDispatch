@@ -40,6 +40,16 @@ namespace ManagementDispatch.Controllers
                     item.isDelete = true;
                     _data.PhongBans.InsertOnSubmit(item);
                     _data.SubmitChanges();
+
+                    string writeLog = "Thêm phòng ban mới: " + item.TenPhongBan;
+                    NhanVien admin = (NhanVien)Session["Admin"];
+                    NhatKyHeThong log = new NhatKyHeThong();
+                    log.IDNhanVien = admin.IDNhanVien;
+                    log.NoiDungNhatKy = writeLog;
+                    log.NgayGio = DateTime.Now;
+                    _data.NhatKyHeThongs.InsertOnSubmit(log);
+                    _data.SubmitChanges();
+
                     return RedirectToAction("Index");
                 }
             }
@@ -60,10 +70,21 @@ namespace ManagementDispatch.Controllers
             try
             {
                 PhongBan getDepartment = _data.PhongBans.SingleOrDefault(n => n.IDPhongBan == id);
+                string writeLog = "Sửa đơn vị: " + getDepartment.TenPhongBan;
                 getDepartment.TenPhongBan = formCollection["InputName"];
                 getDepartment.GhiChu = formCollection["InputInfo"];
                 UpdateModel(getDepartment);
                 _data.SubmitChanges();
+
+                writeLog = writeLog + "  =>  " + getDepartment.TenPhongBan;
+                NhanVien admin = (NhanVien)Session["Admin"];
+                NhatKyHeThong log = new NhatKyHeThong();
+                log.IDNhanVien = admin.IDNhanVien;
+                log.NoiDungNhatKy = writeLog;
+                log.NgayGio = DateTime.Now;
+                _data.NhatKyHeThongs.InsertOnSubmit(log);
+                _data.SubmitChanges();
+
                 return RedirectToAction("Index");
             }
             catch
