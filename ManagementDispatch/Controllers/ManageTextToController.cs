@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace ManagementDispatch.Controllers
 {
+    [AuthorzireBusiness]
     public class ManageTextToController : Controller
     {
         // GET: Text

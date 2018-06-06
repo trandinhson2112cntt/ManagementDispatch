@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Cấp quyền người dùng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section jsFooter{
+    <script>
+    function getPermission(action,usergrant)
+    {
+        $.ajax({
+            method: "GET",
+            url: action,
+            data: { usertemp: usergrant },
+            success: function (data) {
+                $('#listaction').html('');
+                $.each(data, function (index, value) {
+                    if (value.IsGranted)
+                        $('#listaction').append("<input type ='CheckBox' checked onchange='updatePermission(" + "\"/BlogGrantPermission/updatePermission/\"+this.value,\"@Session["usergrant"]\")' value='" + value.PermissionId + "'>" + value.Description + "<br>");
+                    else
+                        $('#listaction').append("<input type ='CheckBox' onchange='updatePermission(" + "\"/BlogGrantPermission/updatePermission/\"+this.value,\"@Session["usergrant"]\")' value='" + value.PermissionId + "'>" + value.Description + "<br>");
+
+                });
+            }
+        })
+     }
+    function updatePermission(action, usergrant) {
+            $.ajax({
+                method: "GET",
+                url: action,
+                url: action,
+                data: { usertemp: usergrant },
+                success: function (data) {
+                    $('#msg').html(data);
+                }
+            })
+       }
+    </script>
+}
+<p style="font-size:30px">Cấp quyền người dùng  @ViewBag.usergrant</p>
+<hr />
+<div id="msg"></div>
+<div class="col-xs-4 col-md-4">
+    <h4>
+        Danh sách nghiệp vụ
+    </h4>
+    @Html.DropDownList("businessControler", (IEnumerable<SelectListItem>)ViewBag.items, new { size = 10, onchange = "getPermission('/BlogGrantPermission/getPermission/'+this.value,'" + Session["usergrant"] + "');" })
+</div>
+<div class="col-xs-4 col-md-4">
+    <h4>
+        Danh sách quyền hạn
+    </h4>
+    <div id="listaction">
+
+    </div>
+</div>
+

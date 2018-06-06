@@ -1,13 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="QuanLyCongVan" Class="DataBaseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="WebSettings" ConnectionString="Data Source=.;Initial Catalog=QuanLyCongVan;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="QuanLyCongVanConnectionString" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.AspControllers" Member="AspControllers">
-    <Type Name="AspController">
-      <Column Name="Controller" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Action" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Area" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Description" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="IsDelete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Association Name="AspController_AspRoleController" Member="AspRoleControllers" ThisKey="Controller,Action" OtherKey="Controller,Action" Type="AspRoleController" />
+  <Table Name="dbo.BlogBusiness" Member="BlogBusinesses">
+    <Type Name="BlogBusiness">
+      <Column Name="BusinessId" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="BusinessName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="BlogBusiness_BlogPermission" Member="BlogPermissions" ThisKey="BusinessId" OtherKey="BusinessId" Type="BlogPermission" />
     </Type>
   </Table>
   <Table Name="dbo.PhongBan" Member="PhongBans">
@@ -20,21 +17,14 @@
       <Association Name="PhongBan_NhanVien" Member="NhanViens" ThisKey="IDPhongBan" OtherKey="IDPhongBan" Type="NhanVien" />
     </Type>
   </Table>
-  <Table Name="dbo.AspNetRoles" Member="AspNetRoles">
-    <Type Name="AspNetRole">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Association Name="AspNetRole_AspRoleController" Member="AspRoleControllers" ThisKey="Id" OtherKey="RoldID" Type="AspRoleController" />
-    </Type>
-  </Table>
-  <Table Name="dbo.AspRoleControllers" Member="AspRoleControllers">
-    <Type Name="AspRoleController">
-      <Column Name="RoldID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Controller" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Action" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+  <Table Name="dbo.BlogPermission" Member="BlogPermissions">
+    <Type Name="BlogPermission">
+      <Column Name="PermissionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PermissionName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="BusinessId" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Description" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Association Name="AspController_AspRoleController" Member="AspController" ThisKey="Controller,Action" OtherKey="Controller,Action" Type="AspController" IsForeignKey="true" />
-      <Association Name="AspNetRole_AspRoleController" Member="AspNetRole" ThisKey="RoldID" OtherKey="Id" Type="AspNetRole" IsForeignKey="true" />
+      <Association Name="BlogPermission_GrantPermission" Member="GrantPermissions" ThisKey="PermissionId" OtherKey="PermissionId" Type="GrantPermission" />
+      <Association Name="BlogBusiness_BlogPermission" Member="BlogBusiness" ThisKey="BusinessId" OtherKey="BusinessId" Type="BlogBusiness" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.CongVanDen" Member="CongVanDens">
@@ -91,6 +81,14 @@
       <Association Name="DonVi_CongVanDi1" Member="CongVanDis1" ThisKey="IDDonVi" OtherKey="IDDonViNhan" Type="CongVanDi" />
     </Type>
   </Table>
+  <Table Name="dbo.GrantPermission" Member="GrantPermissions">
+    <Type Name="GrantPermission">
+      <Column Name="PermissionId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IDNhanVien" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="BlogPermission_GrantPermission" Member="BlogPermission" ThisKey="PermissionId" OtherKey="PermissionId" Type="BlogPermission" IsForeignKey="true" />
+      <Association Name="NhanVien_GrantPermission" Member="NhanVien" ThisKey="IDNhanVien" OtherKey="IDNhanVien" Type="NhanVien" IsForeignKey="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.LoaiCongVan" Member="LoaiCongVans">
     <Type Name="LoaiCongVan">
       <Column Name="IDLoaiCongVan" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -111,6 +109,7 @@
       <Column Name="SDT" Type="System.String" DbType="Char(15)" CanBeNull="true" />
       <Column Name="IDPhongBan" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Lock" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="NhanVien_GrantPermission" Member="GrantPermissions" ThisKey="IDNhanVien" OtherKey="IDNhanVien" Type="GrantPermission" />
       <Association Name="NhanVien_NhatKyHeThong" Member="NhatKyHeThongs" ThisKey="IDNhanVien" OtherKey="IDNhanVien" Type="NhatKyHeThong" />
       <Association Name="PhongBan_NhanVien" Member="PhongBan" ThisKey="IDPhongBan" OtherKey="IDPhongBan" Type="PhongBan" IsForeignKey="true" />
     </Type>

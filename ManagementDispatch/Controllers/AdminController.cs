@@ -7,6 +7,7 @@ using ManagementDispatch.Models;
 
 namespace ManagementDispatch.Controllers
 {
+    [AuthorzireBusiness]
     public class AdminController : Controller
     {
         DataBaseDataContext _data = new DataBaseDataContext();
@@ -15,43 +16,7 @@ namespace ManagementDispatch.Controllers
         {
             return View();
         }
-        [HttpGet]
-        public ActionResult LoginAdmin()
-        {
-            return View();
-        }
-        [HttpPost]
-        public ActionResult LoginAdmin(FormCollection collection)
-        {
-            var username = collection["username"];
-
-            var password = collection["password"];
-            ViewData["Loi"] = "";
-            if (String.IsNullOrEmpty(username) || String.IsNullOrEmpty(password))
-            {
-                ViewData["Loi"] = "Không được bỏ trống tên đăng nhập,mật khẩu";
-            }
-            else
-            {
-                NhanVien ad = _data.NhanViens.SingleOrDefault(n => n.Username == username && n.Password == password);
-                if (ad != null)
-                {
-                    Session["Admin"] = ad;
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    ViewBag.Thongbao = "Tên đăng nhập hoặc mật khẩu không chính xác";
-                }
-            }
-            return View();
-        }
-
-        public ActionResult LogoutAdmin()
-        {
-            Session["Admin"] = null;
-            return View("LoginAdmin");
-        }
+       
 
         public ActionResult InfoAdminLogin()
         {
@@ -139,5 +104,97 @@ namespace ManagementDispatch.Controllers
             });
 
         }
+
+        public ActionResult ListRole()
+        {
+            var getListRole = _data.BlogBusinesses.ToList();
+            return View(getListRole);
+        }
+        [HttpGet]
+        public ActionResult EditBlogBusiness(string id)
+        {
+            BlogBusiness blogBusiness = _data.BlogBusinesses.SingleOrDefault(n => n.BusinessId == id);
+            return View(blogBusiness);
+        }
+        [HttpPost]
+        public ActionResult EditBlogBusiness(string id, FormCollection formCollection)
+        {
+            try
+            {
+                BlogBusiness blogBusiness = _data.BlogBusinesses.SingleOrDefault(n => n.BusinessId == id);
+                blogBusiness.BusinessName = formCollection["InputName"];
+                UpdateModel(blogBusiness);
+                _data.SubmitChanges();
+
+                return RedirectToAction("ListRole");
+            }
+            catch
+            {
+                return View();
+            }
+
+        }
+
+        public ActionResult ListPermission(string id)
+        {
+            var getListPermission = _data.BlogPermissions.Where(x=>x.BusinessId == id).ToList();
+            return View(getListPermission);
+        }
+        [HttpGet]
+        public ActionResult EditBlogPermission(int id)
+        {
+            BlogPermission blogBusiness = _data.BlogPermissions.SingleOrDefault(n => n.PermissionId == id);
+            return View(blogBusiness);
+        }
+        [HttpPost]
+        public ActionResult EditBlogPermission(int id, FormCollection formCollection)
+        {
+            try
+            {
+                BlogPermission blogPermission = _data.BlogPermissions.SingleOrDefault(n => n.PermissionId == id);
+                blogPermission.Description = formCollection["Description"];
+                UpdateModel(blogPermission);
+                _data.SubmitChanges();
+
+                return RedirectToAction("ListPermission", new { id = blogPermission.BusinessId});
+            }
+            catch
+            {
+                return View();
+            }
+
+        }
+
+
+
+        public ActionResult UpdateBusiness()
+        {
+            ReflectionController rc = new ReflectionController();
+            List<Type> listControllerType = rc.GetControllers("ManagementDispatch.Controllers");
+            List<string> listControllerOld = _data.BlogBusinesses.Select(c => c.BusinessId).ToList();
+            List<string> listPermessionOld = _data.BlogPermissions.Select(c => c.PermissionName).ToList();
+            foreach (var c in listControllerType)
+            {
+                if (!listControllerOld.Contains(c.Name))
+                {
+                    BlogBusiness b = new BlogBusiness() { BusinessId = c.Name, BusinessName = "Chưa có mô tả" };
+                    _data.BlogBusinesses.InsertOnSubmit(b);
+                    _data.SubmitChanges();
+                }
+                List<string> listPermission = rc.GetActions(c);
+                foreach (var p in listPermission)
+                {
+                    if (!listPermessionOld.Contains(c.Name+"-"+p))
+                    {
+                        BlogPermission permission = new BlogPermission() { PermissionName = c.Name + "-" + p, Description = "Chưa có mô tả", BusinessId = c.Name };
+                        _data.BlogPermissions.InsertOnSubmit(permission);
+                        _data.SubmitChanges();
+                    }
+                }
+            }
+
+            return RedirectToAction("ListRole");
+        }
+        
     }
 }

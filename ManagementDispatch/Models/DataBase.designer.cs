@@ -30,18 +30,15 @@ namespace ManagementDispatch.Models
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertAspController(AspController instance);
-    partial void UpdateAspController(AspController instance);
-    partial void DeleteAspController(AspController instance);
+    partial void InsertBlogBusiness(BlogBusiness instance);
+    partial void UpdateBlogBusiness(BlogBusiness instance);
+    partial void DeleteBlogBusiness(BlogBusiness instance);
     partial void InsertPhongBan(PhongBan instance);
     partial void UpdatePhongBan(PhongBan instance);
     partial void DeletePhongBan(PhongBan instance);
-    partial void InsertAspNetRole(AspNetRole instance);
-    partial void UpdateAspNetRole(AspNetRole instance);
-    partial void DeleteAspNetRole(AspNetRole instance);
-    partial void InsertAspRoleController(AspRoleController instance);
-    partial void UpdateAspRoleController(AspRoleController instance);
-    partial void DeleteAspRoleController(AspRoleController instance);
+    partial void InsertBlogPermission(BlogPermission instance);
+    partial void UpdateBlogPermission(BlogPermission instance);
+    partial void DeleteBlogPermission(BlogPermission instance);
     partial void InsertCongVanDen(CongVanDen instance);
     partial void UpdateCongVanDen(CongVanDen instance);
     partial void DeleteCongVanDen(CongVanDen instance);
@@ -51,6 +48,9 @@ namespace ManagementDispatch.Models
     partial void InsertDonVi(DonVi instance);
     partial void UpdateDonVi(DonVi instance);
     partial void DeleteDonVi(DonVi instance);
+    partial void InsertGrantPermission(GrantPermission instance);
+    partial void UpdateGrantPermission(GrantPermission instance);
+    partial void DeleteGrantPermission(GrantPermission instance);
     partial void InsertLoaiCongVan(LoaiCongVan instance);
     partial void UpdateLoaiCongVan(LoaiCongVan instance);
     partial void DeleteLoaiCongVan(LoaiCongVan instance);
@@ -92,11 +92,11 @@ namespace ManagementDispatch.Models
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<AspController> AspControllers
+		public System.Data.Linq.Table<BlogBusiness> BlogBusinesses
 		{
 			get
 			{
-				return this.GetTable<AspController>();
+				return this.GetTable<BlogBusiness>();
 			}
 		}
 		
@@ -108,19 +108,11 @@ namespace ManagementDispatch.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<AspNetRole> AspNetRoles
+		public System.Data.Linq.Table<BlogPermission> BlogPermissions
 		{
 			get
 			{
-				return this.GetTable<AspNetRole>();
-			}
-		}
-		
-		public System.Data.Linq.Table<AspRoleController> AspRoleControllers
-		{
-			get
-			{
-				return this.GetTable<AspRoleController>();
+				return this.GetTable<BlogPermission>();
 			}
 		}
 		
@@ -145,6 +137,14 @@ namespace ManagementDispatch.Models
 			get
 			{
 				return this.GetTable<DonVi>();
+			}
+		}
+		
+		public System.Data.Linq.Table<GrantPermission> GrantPermissions
+		{
+			get
+			{
+				return this.GetTable<GrantPermission>();
 			}
 		}
 		
@@ -173,156 +173,84 @@ namespace ManagementDispatch.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.AspControllers")]
-	public partial class AspController : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BlogBusiness")]
+	public partial class BlogBusiness : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private string _Controller;
+		private string _BusinessId;
 		
-		private string _Action;
+		private string _BusinessName;
 		
-		private string _Area;
-		
-		private string _Description;
-		
-		private System.Nullable<bool> _IsDelete;
-		
-		private EntitySet<AspRoleController> _AspRoleControllers;
+		private EntitySet<BlogPermission> _BlogPermissions;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnControllerChanging(string value);
-    partial void OnControllerChanged();
-    partial void OnActionChanging(string value);
-    partial void OnActionChanged();
-    partial void OnAreaChanging(string value);
-    partial void OnAreaChanged();
-    partial void OnDescriptionChanging(string value);
-    partial void OnDescriptionChanged();
-    partial void OnIsDeleteChanging(System.Nullable<bool> value);
-    partial void OnIsDeleteChanged();
+    partial void OnBusinessIdChanging(string value);
+    partial void OnBusinessIdChanged();
+    partial void OnBusinessNameChanging(string value);
+    partial void OnBusinessNameChanged();
     #endregion
 		
-		public AspController()
+		public BlogBusiness()
 		{
-			this._AspRoleControllers = new EntitySet<AspRoleController>(new Action<AspRoleController>(this.attach_AspRoleControllers), new Action<AspRoleController>(this.detach_AspRoleControllers));
+			this._BlogPermissions = new EntitySet<BlogPermission>(new Action<BlogPermission>(this.attach_BlogPermissions), new Action<BlogPermission>(this.detach_BlogPermissions));
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Controller", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string Controller
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BusinessId", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string BusinessId
 		{
 			get
 			{
-				return this._Controller;
+				return this._BusinessId;
 			}
 			set
 			{
-				if ((this._Controller != value))
+				if ((this._BusinessId != value))
 				{
-					this.OnControllerChanging(value);
+					this.OnBusinessIdChanging(value);
 					this.SendPropertyChanging();
-					this._Controller = value;
-					this.SendPropertyChanged("Controller");
-					this.OnControllerChanged();
+					this._BusinessId = value;
+					this.SendPropertyChanged("BusinessId");
+					this.OnBusinessIdChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Action", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string Action
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BusinessName", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string BusinessName
 		{
 			get
 			{
-				return this._Action;
+				return this._BusinessName;
 			}
 			set
 			{
-				if ((this._Action != value))
+				if ((this._BusinessName != value))
 				{
-					this.OnActionChanging(value);
+					this.OnBusinessNameChanging(value);
 					this.SendPropertyChanging();
-					this._Action = value;
-					this.SendPropertyChanged("Action");
-					this.OnActionChanged();
+					this._BusinessName = value;
+					this.SendPropertyChanged("BusinessName");
+					this.OnBusinessNameChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Area", DbType="NVarChar(50)")]
-		public string Area
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="BlogBusiness_BlogPermission", Storage="_BlogPermissions", ThisKey="BusinessId", OtherKey="BusinessId")]
+		public EntitySet<BlogPermission> BlogPermissions
 		{
 			get
 			{
-				return this._Area;
+				return this._BlogPermissions;
 			}
 			set
 			{
-				if ((this._Area != value))
-				{
-					this.OnAreaChanging(value);
-					this.SendPropertyChanging();
-					this._Area = value;
-					this.SendPropertyChanged("Area");
-					this.OnAreaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(50)")]
-		public string Description
-		{
-			get
-			{
-				return this._Description;
-			}
-			set
-			{
-				if ((this._Description != value))
-				{
-					this.OnDescriptionChanging(value);
-					this.SendPropertyChanging();
-					this._Description = value;
-					this.SendPropertyChanged("Description");
-					this.OnDescriptionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsDelete", DbType="Bit")]
-		public System.Nullable<bool> IsDelete
-		{
-			get
-			{
-				return this._IsDelete;
-			}
-			set
-			{
-				if ((this._IsDelete != value))
-				{
-					this.OnIsDeleteChanging(value);
-					this.SendPropertyChanging();
-					this._IsDelete = value;
-					this.SendPropertyChanged("IsDelete");
-					this.OnIsDeleteChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="AspController_AspRoleController", Storage="_AspRoleControllers", ThisKey="Controller,Action", OtherKey="Controller,Action")]
-		public EntitySet<AspRoleController> AspRoleControllers
-		{
-			get
-			{
-				return this._AspRoleControllers;
-			}
-			set
-			{
-				this._AspRoleControllers.Assign(value);
+				this._BlogPermissions.Assign(value);
 			}
 		}
 		
@@ -346,16 +274,16 @@ namespace ManagementDispatch.Models
 			}
 		}
 		
-		private void attach_AspRoleControllers(AspRoleController entity)
+		private void attach_BlogPermissions(BlogPermission entity)
 		{
 			this.SendPropertyChanging();
-			entity.AspController = this;
+			entity.BlogBusiness = this;
 		}
 		
-		private void detach_AspRoleControllers(AspRoleController entity)
+		private void detach_BlogPermissions(BlogPermission entity)
 		{
 			this.SendPropertyChanging();
-			entity.AspController = null;
+			entity.BlogBusiness = null;
 		}
 	}
 	
@@ -549,227 +477,105 @@ namespace ManagementDispatch.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.AspNetRoles")]
-	public partial class AspNetRole : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BlogPermission")]
+	public partial class BlogPermission : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _Id;
+		private int _PermissionId;
 		
-		private string _Name;
+		private string _PermissionName;
 		
-		private EntitySet<AspRoleController> _AspRoleControllers;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    #endregion
-		
-		public AspNetRole()
-		{
-			this._AspRoleControllers = new EntitySet<AspRoleController>(new Action<AspRoleController>(this.attach_AspRoleControllers), new Action<AspRoleController>(this.detach_AspRoleControllers));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50)")]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="AspNetRole_AspRoleController", Storage="_AspRoleControllers", ThisKey="Id", OtherKey="RoldID")]
-		public EntitySet<AspRoleController> AspRoleControllers
-		{
-			get
-			{
-				return this._AspRoleControllers;
-			}
-			set
-			{
-				this._AspRoleControllers.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_AspRoleControllers(AspRoleController entity)
-		{
-			this.SendPropertyChanging();
-			entity.AspNetRole = this;
-		}
-		
-		private void detach_AspRoleControllers(AspRoleController entity)
-		{
-			this.SendPropertyChanging();
-			entity.AspNetRole = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.AspRoleControllers")]
-	public partial class AspRoleController : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _RoldID;
-		
-		private string _Controller;
-		
-		private string _Action;
+		private string _BusinessId;
 		
 		private string _Description;
 		
-		private EntityRef<AspController> _AspController;
+		private EntitySet<GrantPermission> _GrantPermissions;
 		
-		private EntityRef<AspNetRole> _AspNetRole;
+		private EntityRef<BlogBusiness> _BlogBusiness;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnRoldIDChanging(int value);
-    partial void OnRoldIDChanged();
-    partial void OnControllerChanging(string value);
-    partial void OnControllerChanged();
-    partial void OnActionChanging(string value);
-    partial void OnActionChanged();
+    partial void OnPermissionIdChanging(int value);
+    partial void OnPermissionIdChanged();
+    partial void OnPermissionNameChanging(string value);
+    partial void OnPermissionNameChanged();
+    partial void OnBusinessIdChanging(string value);
+    partial void OnBusinessIdChanged();
     partial void OnDescriptionChanging(string value);
     partial void OnDescriptionChanged();
     #endregion
 		
-		public AspRoleController()
+		public BlogPermission()
 		{
-			this._AspController = default(EntityRef<AspController>);
-			this._AspNetRole = default(EntityRef<AspNetRole>);
+			this._GrantPermissions = new EntitySet<GrantPermission>(new Action<GrantPermission>(this.attach_GrantPermissions), new Action<GrantPermission>(this.detach_GrantPermissions));
+			this._BlogBusiness = default(EntityRef<BlogBusiness>);
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RoldID", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int RoldID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PermissionId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int PermissionId
 		{
 			get
 			{
-				return this._RoldID;
+				return this._PermissionId;
 			}
 			set
 			{
-				if ((this._RoldID != value))
+				if ((this._PermissionId != value))
 				{
-					if (this._AspNetRole.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnRoldIDChanging(value);
+					this.OnPermissionIdChanging(value);
 					this.SendPropertyChanging();
-					this._RoldID = value;
-					this.SendPropertyChanged("RoldID");
-					this.OnRoldIDChanged();
+					this._PermissionId = value;
+					this.SendPropertyChanged("PermissionId");
+					this.OnPermissionIdChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Controller", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string Controller
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PermissionName", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string PermissionName
 		{
 			get
 			{
-				return this._Controller;
+				return this._PermissionName;
 			}
 			set
 			{
-				if ((this._Controller != value))
+				if ((this._PermissionName != value))
 				{
-					if (this._AspController.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnControllerChanging(value);
+					this.OnPermissionNameChanging(value);
 					this.SendPropertyChanging();
-					this._Controller = value;
-					this.SendPropertyChanged("Controller");
-					this.OnControllerChanged();
+					this._PermissionName = value;
+					this.SendPropertyChanged("PermissionName");
+					this.OnPermissionNameChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Action", DbType="NVarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string Action
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BusinessId", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string BusinessId
 		{
 			get
 			{
-				return this._Action;
+				return this._BusinessId;
 			}
 			set
 			{
-				if ((this._Action != value))
+				if ((this._BusinessId != value))
 				{
-					if (this._AspController.HasLoadedOrAssignedValue)
+					if (this._BlogBusiness.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
-					this.OnActionChanging(value);
+					this.OnBusinessIdChanging(value);
 					this.SendPropertyChanging();
-					this._Action = value;
-					this.SendPropertyChanged("Action");
-					this.OnActionChanged();
+					this._BusinessId = value;
+					this.SendPropertyChanged("BusinessId");
+					this.OnBusinessIdChanged();
 				}
 			}
 		}
@@ -794,72 +600,49 @@ namespace ManagementDispatch.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="AspController_AspRoleController", Storage="_AspController", ThisKey="Controller,Action", OtherKey="Controller,Action", IsForeignKey=true)]
-		public AspController AspController
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="BlogPermission_GrantPermission", Storage="_GrantPermissions", ThisKey="PermissionId", OtherKey="PermissionId")]
+		public EntitySet<GrantPermission> GrantPermissions
 		{
 			get
 			{
-				return this._AspController.Entity;
+				return this._GrantPermissions;
 			}
 			set
 			{
-				AspController previousValue = this._AspController.Entity;
-				if (((previousValue != value) 
-							|| (this._AspController.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._AspController.Entity = null;
-						previousValue.AspRoleControllers.Remove(this);
-					}
-					this._AspController.Entity = value;
-					if ((value != null))
-					{
-						value.AspRoleControllers.Add(this);
-						this._Controller = value.Controller;
-						this._Action = value.Action;
-					}
-					else
-					{
-						this._Controller = default(string);
-						this._Action = default(string);
-					}
-					this.SendPropertyChanged("AspController");
-				}
+				this._GrantPermissions.Assign(value);
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="AspNetRole_AspRoleController", Storage="_AspNetRole", ThisKey="RoldID", OtherKey="Id", IsForeignKey=true)]
-		public AspNetRole AspNetRole
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="BlogBusiness_BlogPermission", Storage="_BlogBusiness", ThisKey="BusinessId", OtherKey="BusinessId", IsForeignKey=true)]
+		public BlogBusiness BlogBusiness
 		{
 			get
 			{
-				return this._AspNetRole.Entity;
+				return this._BlogBusiness.Entity;
 			}
 			set
 			{
-				AspNetRole previousValue = this._AspNetRole.Entity;
+				BlogBusiness previousValue = this._BlogBusiness.Entity;
 				if (((previousValue != value) 
-							|| (this._AspNetRole.HasLoadedOrAssignedValue == false)))
+							|| (this._BlogBusiness.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._AspNetRole.Entity = null;
-						previousValue.AspRoleControllers.Remove(this);
+						this._BlogBusiness.Entity = null;
+						previousValue.BlogPermissions.Remove(this);
 					}
-					this._AspNetRole.Entity = value;
+					this._BlogBusiness.Entity = value;
 					if ((value != null))
 					{
-						value.AspRoleControllers.Add(this);
-						this._RoldID = value.Id;
+						value.BlogPermissions.Add(this);
+						this._BusinessId = value.BusinessId;
 					}
 					else
 					{
-						this._RoldID = default(int);
+						this._BusinessId = default(string);
 					}
-					this.SendPropertyChanged("AspNetRole");
+					this.SendPropertyChanged("BlogBusiness");
 				}
 			}
 		}
@@ -882,6 +665,18 @@ namespace ManagementDispatch.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_GrantPermissions(GrantPermission entity)
+		{
+			this.SendPropertyChanging();
+			entity.BlogPermission = this;
+		}
+		
+		private void detach_GrantPermissions(GrantPermission entity)
+		{
+			this.SendPropertyChanging();
+			entity.BlogPermission = null;
 		}
 	}
 	
@@ -2163,6 +1958,174 @@ namespace ManagementDispatch.Models
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.GrantPermission")]
+	public partial class GrantPermission : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _PermissionId;
+		
+		private int _IDNhanVien;
+		
+		private EntityRef<BlogPermission> _BlogPermission;
+		
+		private EntityRef<NhanVien> _NhanVien;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPermissionIdChanging(int value);
+    partial void OnPermissionIdChanged();
+    partial void OnIDNhanVienChanging(int value);
+    partial void OnIDNhanVienChanged();
+    #endregion
+		
+		public GrantPermission()
+		{
+			this._BlogPermission = default(EntityRef<BlogPermission>);
+			this._NhanVien = default(EntityRef<NhanVien>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PermissionId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int PermissionId
+		{
+			get
+			{
+				return this._PermissionId;
+			}
+			set
+			{
+				if ((this._PermissionId != value))
+				{
+					if (this._BlogPermission.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnPermissionIdChanging(value);
+					this.SendPropertyChanging();
+					this._PermissionId = value;
+					this.SendPropertyChanged("PermissionId");
+					this.OnPermissionIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDNhanVien", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int IDNhanVien
+		{
+			get
+			{
+				return this._IDNhanVien;
+			}
+			set
+			{
+				if ((this._IDNhanVien != value))
+				{
+					if (this._NhanVien.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIDNhanVienChanging(value);
+					this.SendPropertyChanging();
+					this._IDNhanVien = value;
+					this.SendPropertyChanged("IDNhanVien");
+					this.OnIDNhanVienChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="BlogPermission_GrantPermission", Storage="_BlogPermission", ThisKey="PermissionId", OtherKey="PermissionId", IsForeignKey=true)]
+		public BlogPermission BlogPermission
+		{
+			get
+			{
+				return this._BlogPermission.Entity;
+			}
+			set
+			{
+				BlogPermission previousValue = this._BlogPermission.Entity;
+				if (((previousValue != value) 
+							|| (this._BlogPermission.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._BlogPermission.Entity = null;
+						previousValue.GrantPermissions.Remove(this);
+					}
+					this._BlogPermission.Entity = value;
+					if ((value != null))
+					{
+						value.GrantPermissions.Add(this);
+						this._PermissionId = value.PermissionId;
+					}
+					else
+					{
+						this._PermissionId = default(int);
+					}
+					this.SendPropertyChanged("BlogPermission");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="NhanVien_GrantPermission", Storage="_NhanVien", ThisKey="IDNhanVien", OtherKey="IDNhanVien", IsForeignKey=true)]
+		public NhanVien NhanVien
+		{
+			get
+			{
+				return this._NhanVien.Entity;
+			}
+			set
+			{
+				NhanVien previousValue = this._NhanVien.Entity;
+				if (((previousValue != value) 
+							|| (this._NhanVien.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._NhanVien.Entity = null;
+						previousValue.GrantPermissions.Remove(this);
+					}
+					this._NhanVien.Entity = value;
+					if ((value != null))
+					{
+						value.GrantPermissions.Add(this);
+						this._IDNhanVien = value.IDNhanVien;
+					}
+					else
+					{
+						this._IDNhanVien = default(int);
+					}
+					this.SendPropertyChanged("NhanVien");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.LoaiCongVan")]
 	public partial class LoaiCongVan : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -2353,6 +2316,8 @@ namespace ManagementDispatch.Models
 		
 		private bool _Lock;
 		
+		private EntitySet<GrantPermission> _GrantPermissions;
+		
 		private EntitySet<NhatKyHeThong> _NhatKyHeThongs;
 		
 		private EntityRef<PhongBan> _PhongBan;
@@ -2383,6 +2348,7 @@ namespace ManagementDispatch.Models
 		
 		public NhanVien()
 		{
+			this._GrantPermissions = new EntitySet<GrantPermission>(new Action<GrantPermission>(this.attach_GrantPermissions), new Action<GrantPermission>(this.detach_GrantPermissions));
 			this._NhatKyHeThongs = new EntitySet<NhatKyHeThong>(new Action<NhatKyHeThong>(this.attach_NhatKyHeThongs), new Action<NhatKyHeThong>(this.detach_NhatKyHeThongs));
 			this._PhongBan = default(EntityRef<PhongBan>);
 			OnCreated();
@@ -2572,6 +2538,19 @@ namespace ManagementDispatch.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="NhanVien_GrantPermission", Storage="_GrantPermissions", ThisKey="IDNhanVien", OtherKey="IDNhanVien")]
+		public EntitySet<GrantPermission> GrantPermissions
+		{
+			get
+			{
+				return this._GrantPermissions;
+			}
+			set
+			{
+				this._GrantPermissions.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="NhanVien_NhatKyHeThong", Storage="_NhatKyHeThongs", ThisKey="IDNhanVien", OtherKey="IDNhanVien")]
 		public EntitySet<NhatKyHeThong> NhatKyHeThongs
 		{
@@ -2637,6 +2616,18 @@ namespace ManagementDispatch.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_GrantPermissions(GrantPermission entity)
+		{
+			this.SendPropertyChanging();
+			entity.NhanVien = this;
+		}
+		
+		private void detach_GrantPermissions(GrantPermission entity)
+		{
+			this.SendPropertyChanging();
+			entity.NhanVien = null;
 		}
 		
 		private void attach_NhatKyHeThongs(NhatKyHeThong entity)

@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using ManagementDispatch.Models;
 namespace ManagementDispatch.Controllers
 {
+
+    [AuthorzireBusiness]
     public class SystemLogController : Controller
     {
         DataBaseDataContext _data = new DataBaseDataContext();

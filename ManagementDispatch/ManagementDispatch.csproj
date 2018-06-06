@@ -155,15 +155,20 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AgencyController.cs" />
+    <Compile Include="Controllers\BlogGrantPermissionController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageTextGoController.cs" />
+    <Compile Include="Controllers\ManageTextSecretController.cs" />
     <Compile Include="Controllers\ManageTextToController.cs" />
     <Compile Include="Controllers\SystemLogController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AuthorzireBusiness.cs" />
+    <Compile Include="Models\PermissionAction.cs" />
+    <Compile Include="Models\ReflectionController.cs" />
     <Compile Include="Models\DataBase.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1069,16 +1074,23 @@
     <Content Include="Views\ManageTextGo\Index.cshtml" />
     <Content Include="Views\ManageTextGo\AddTextGo.cshtml" />
     <Content Include="Views\ManageTextGo\EditTextGo.cshtml" />
-    <Content Include="Views\Admin\LoginAdmin.cshtml" />
     <Content Include="Views\Admin\InfoAdminLogin.cshtml" />
     <Content Include="Views\Admin\ProfileAdmin.cshtml" />
     <Content Include="Views\SystemLog\Index.cshtml" />
     <Content Include="Views\Admin\AddAdmin.cshtml" />
     <Content Include="Views\Admin\ListAdmin.cshtml" />
+    <Content Include="Views\Admin\ListRole.cshtml" />
+    <Content Include="Views\Admin\EditBlogBusiness.cshtml" />
+    <Content Include="Views\Admin\ListPermission.cshtml" />
+    <Content Include="Views\Admin\EditBlogPermission.cshtml" />
+    <Content Include="Views\BlogGrantPermission\Index.cshtml" />
+    <Content Include="Views\Home\NotificationAuthorize.cshtml" />
+    <Content Include="Views\Home\LoginAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="ImageScan\" />
+    <Folder Include="Views\ManageTextSecret\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

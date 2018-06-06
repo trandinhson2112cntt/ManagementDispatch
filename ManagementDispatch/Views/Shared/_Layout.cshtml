@@ -1,7 +1,7 @@
 ﻿@{
     if (Session["Admin"] == null)
     {
-        Response.Redirect("~/Admin/LoginAdmin");
+        Response.Redirect("~/Home/LoginAdmin");
     }
 }
 
@@ -34,6 +34,7 @@
     <script src="~/TemplateAdmin/vendor/jquery/jquery.min.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="~/TemplateAdmin/vendor/bootstrap/js/bootstrap.min.js"></script>
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -75,6 +76,9 @@
                             <a href="@Url.Action("Index","ManageTextGo")"><i class="fa fa-table fa-fw"></i> Công văn đi</a>
                         </li>
                         <li>
+                            <a href="@Url.Action("Index","ManageTextSecret")"><i class="fa fa-table fa-fw"></i> Công văn bảo mật</a>
+                        </li>
+                        <li>
                             <a href="#"><i class="fa fa-wrench fa-fw"></i>Bổ sung<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
@@ -101,6 +105,9 @@
                                 <li>
                                     <a href="@Url.Action("Index","SystemLog")">Nhật ký hệ thống</a>
                                 </li>
+                                <li>
+                                    <a href="@Url.Action("ListRole","Admin")">Quản lý quyền</a>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
@@ -118,8 +125,7 @@
         <!-- /#page-wrapper -->
     </div>
     <!-- /#wrapper -->
-    <!-- jQuery -->
-    <script src="~/TemplateAdmin/vendor/jquery/jquery.min.js"></script>
+   
     <!-- Bootstrap Core JavaScript -->
     <script src="~/TemplateAdmin/vendor/bootstrap/js/bootstrap.min.js"></script>
     <!-- Metis Menu Plugin JavaScript -->

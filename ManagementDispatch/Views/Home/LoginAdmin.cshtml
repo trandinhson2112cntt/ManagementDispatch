@@ -44,7 +44,7 @@
                         <h3 class="panel-title">Sign In</h3>
                     </div>
                     <div class="panel-body">
-                        @using (Html.BeginForm("LoginAdmin","Admin",FormMethod.Post))
+                        @using (Html.BeginForm("LoginAdmin", "Home", FormMethod.Post))
                         {
                             @Html.ValidationSummary(true)
                             <form class="form-login">
