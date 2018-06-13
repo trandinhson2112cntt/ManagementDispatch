@@ -1,22 +1,25 @@
-﻿<ul class="nav navbar-top-links navbar-right">
-    <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-            <i class="fa fa-user fa-fw"></i> @Model.HoTen <i class="fa fa-caret-down"></i>
-        </a>
-        <ul class="dropdown-menu dropdown-user">
-            <li>
-                <a href="#"><i class="fa fa-user fa-fw"></i>@Html.ActionLink("Thông tin cá nhân","ProfileAdmin", "Admin")</a>
-            </li>
-            <li>
-                <a href="#"><i class="fa fa-gear fa-fw"></i> Đổi mật khẩu</a>
-            </li>
-            <li class="divider"></li>
-            <li>
-                <a><i class="fa fa-sign-out fa-fw"></i>@Html.ActionLink("Đăng xuất", "LogoutAdmin", "Home")</a>
-            </li>
-        </ul>
-        <!-- /.dropdown-user -->
-    </li>
-    <!-- /.dropdown -->
-</ul>
-<!-- /.navbar-top-links -->
+﻿<div class="navbar-custom-menu">
+    <ul class="nav navbar-nav">
+        <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <span class="hidden-xs">@Model.HoTen</span>
+            </a>
+            <ul class="dropdown-menu">
+                <!-- User image -->
+               
+                <!-- Menu Footer-->
+                <li class="user-footer">
+                    <div class="pull-left">
+                        @Html.ActionLink("Thông tin cá nhân", "ProfileAdmin", "Admin")
+                    </div>
+                    <div class="pull-right">@Html.ActionLink("Đăng xuất", "LogoutAdmin", "Home")
+                    </div>
+                </li>
+            </ul>
+        </li>
+        <!-- Control Sidebar Toggle Button -->
+        <li>
+            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+        </li>
+    </ul>
+</div>
