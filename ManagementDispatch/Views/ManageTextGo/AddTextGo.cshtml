@@ -76,13 +76,13 @@
             @Html.DropDownList("IDDonViGui")
         </div>
     </div>
-
     <div class="form-group">
-        @Html.LabelFor(model => model.IDDonViNhan, "Đơn vị nhận: ", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.IDDonViGui, "Phòng ban: ", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownList("IDDonViNhan")
+            @Html.DropDownList("IDPhongBan")
         </div>
     </div>
+
     <div class="form-group">
         @Html.LabelFor(model => model.TenNguoiGui, "Người gửi: ", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -90,12 +90,7 @@
             @Html.ValidationMessageFor(model => model.TenNguoiGui, "", new { @class = "text-danger" })
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.IDCongVanDen, "Số CV đến: ", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("IDCongVanDen")
-        </div>
-    </div>
+   
     <div class="form-group">
         @Html.LabelFor(model => model.NoiDungCongViec, "Nội dung:", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -112,16 +107,6 @@
             </div>
 
             @Html.ValidationMessageFor(model => model.NgayGui, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.ThoiHanHoanThanh, "Ngày nhận", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <div id="datepicker1" class="input-group date" data-date-format="dd-mm-yyyy">
-                <input class="form-control" readonly="" type="text" name="ThoiHanHoanThanh"> <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-            </div>
-            @Html.ValidationMessageFor(model => model.ThoiHanHoanThanh, "", new { @class = "text-danger" })
         </div>
     </div>
 

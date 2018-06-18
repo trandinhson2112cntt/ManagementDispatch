@@ -164,6 +164,7 @@
     <Compile Include="Controllers\ManageTextGoController.cs" />
     <Compile Include="Controllers\ManageTextSecretController.cs" />
     <Compile Include="Controllers\ManageTextToController.cs" />
+    <Compile Include="Controllers\StatisticalController.cs" />
     <Compile Include="Controllers\SystemLogController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -176,6 +177,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataBase.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Statistical.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -7889,6 +7891,10 @@
     <Content Include="TemplateAdmin\package.json" />
     <Content Include="TemplateAdmin\README.md" />
     <Content Include="TemplateAdmin\yarn.lock" />
+    <Content Include="Views\Statistical\Index.cshtml" />
+    <Content Include="Views\Statistical\CountText.cshtml" />
+    <Content Include="Views\Statistical\CountTextTo.cshtml" />
+    <Content Include="Views\Statistical\CountTextGo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

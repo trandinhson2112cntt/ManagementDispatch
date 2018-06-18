@@ -14,6 +14,7 @@
       <Column Name="GhiChu" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="isDelete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Association Name="PhongBan_CongVanDen" Member="CongVanDens" ThisKey="IDPhongBan" OtherKey="IDPhongBan" Type="CongVanDen" />
+      <Association Name="PhongBan_CongVanDi" Member="CongVanDis" ThisKey="IDPhongBan" OtherKey="IDPhongBan" Type="CongVanDi" />
       <Association Name="PhongBan_NhanVien" Member="NhanViens" ThisKey="IDPhongBan" OtherKey="IDPhongBan" Type="NhanVien" />
     </Type>
   </Table>
@@ -42,7 +43,7 @@
       <Column Name="[File]" Member="File" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Column Name="AnhScan" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Column Name="BaoMat" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Association Name="CongVanDen_CongVanDi" Member="CongVanDis" ThisKey="IDCongVanDen" OtherKey="IDCongVanDen" Type="CongVanDi" />
+      <Column Name="STT" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
       <Association Name="PhongBan_CongVanDen" Member="PhongBan" ThisKey="IDPhongBan" OtherKey="IDPhongBan" Type="PhongBan" IsForeignKey="true" />
       <Association Name="DonVi_CongVanDen" Member="DonVi" ThisKey="IDDonViGui" OtherKey="IDDonVi" Type="DonVi" IsForeignKey="true" />
       <Association Name="DonVi_CongVanDen1" Member="DonVi1" ThisKey="IDDonViNhan" OtherKey="IDDonVi" Type="DonVi" IsForeignKey="true" />
@@ -54,18 +55,16 @@
       <Column Name="IDCongVanDi" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="IDLoaiCongVan" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="TenNguoiGui" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="IDCongVanDen" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
       <Column Name="IDDonViGui" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="IDDonViNhan" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="NoiDungCongViec" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="NgayGui" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="ThoiHanHoanThanh" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Column Name="[File]" Member="File" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Column Name="AnhScan" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Column Name="BaoMat" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Association Name="CongVanDen_CongVanDi" Member="CongVanDen" ThisKey="IDCongVanDen" OtherKey="IDCongVanDen" Type="CongVanDen" IsForeignKey="true" />
+      <Column Name="STT" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IDPhongBan" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="PhongBan_CongVanDi" Member="PhongBan" ThisKey="IDPhongBan" OtherKey="IDPhongBan" Type="PhongBan" IsForeignKey="true" />
       <Association Name="DonVi_CongVanDi" Member="DonVi" ThisKey="IDDonViGui" OtherKey="IDDonVi" Type="DonVi" IsForeignKey="true" />
-      <Association Name="DonVi_CongVanDi1" Member="DonVi1" ThisKey="IDDonViNhan" OtherKey="IDDonVi" Type="DonVi" IsForeignKey="true" />
       <Association Name="LoaiCongVan_CongVanDi" Member="LoaiCongVan" ThisKey="IDLoaiCongVan" OtherKey="IDLoaiCongVan" Type="LoaiCongVan" IsForeignKey="true" />
     </Type>
   </Table>
@@ -78,7 +77,6 @@
       <Association Name="DonVi_CongVanDen" Member="CongVanDens" ThisKey="IDDonVi" OtherKey="IDDonViGui" Type="CongVanDen" />
       <Association Name="DonVi_CongVanDen1" Member="CongVanDens1" ThisKey="IDDonVi" OtherKey="IDDonViNhan" Type="CongVanDen" />
       <Association Name="DonVi_CongVanDi" Member="CongVanDis" ThisKey="IDDonVi" OtherKey="IDDonViGui" Type="CongVanDi" />
-      <Association Name="DonVi_CongVanDi1" Member="CongVanDis1" ThisKey="IDDonVi" OtherKey="IDDonViNhan" Type="CongVanDi" />
     </Type>
   </Table>
   <Table Name="dbo.GrantPermission" Member="GrantPermissions">

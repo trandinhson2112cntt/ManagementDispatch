@@ -25,8 +25,7 @@ namespace ManagementDispatch.Controllers
             ViewBag.IDLoaiCongVan = new SelectList(_data.LoaiCongVans.ToList().OrderBy(n => n.TenLoaiCongVan), "IDLoaiCongVan", "TenLoaiCongVan");
             ViewBag.IDDonViGui = new SelectList(_data.DonVis.ToList().OrderBy(n => n.TenDonVi), "IDDonVi", "TenDonVi");
             ViewBag.IDDonViNhan = new SelectList(_data.DonVis.ToList().OrderBy(n => n.TenDonVi), "IDDonVi", "TenDonVi");
-            ViewBag.IDCongVanDen = new SelectList(_data.CongVanDens.ToList().OrderBy(n => n.IDCongVanDen), "IDCongVanDen", "IDCongVanDen");
-
+            ViewBag.IDPhongBan = new SelectList(_data.PhongBans.ToList().OrderBy(n => n.TenPhongBan), "IDPhongBan", "TenPhongBan");
             return View();
         }
 
@@ -38,8 +37,7 @@ namespace ManagementDispatch.Controllers
             ViewBag.IDLoaiCongVan = new SelectList(_data.LoaiCongVans.ToList().OrderBy(n => n.TenLoaiCongVan), "IDLoaiCongVan", "TenLoaiCongVan");
             ViewBag.IDDonViGui = new SelectList(_data.DonVis.ToList().OrderBy(n => n.TenDonVi), "IDDonVi", "TenDonVi");
             ViewBag.IDDonViNhan = new SelectList(_data.DonVis.ToList().OrderBy(n => n.TenDonVi), "IDDonVi", "TenDonVi");
-            ViewBag.IDCongVanDen = new SelectList(_data.CongVanDens.ToList().OrderBy(n => n.IDCongVanDen), "IDCongVanDen", "IDCongVanDen");
-
+            ViewBag.IDPhongBan = new SelectList(_data.PhongBans.ToList().OrderBy(n => n.TenPhongBan), "IDPhongBan", "TenPhongBan");
             try
             {
                 ViewBag.Validate = " ";
@@ -61,7 +59,6 @@ namespace ManagementDispatch.Controllers
                 //Luu duong dan File
 
                 item.NgayGui = DateTime.Parse(formCollection["NgayGui"]);
-                item.ThoiHanHoanThanh = DateTime.Parse(formCollection["ThoiHanHoanThanh"]);
                 _data.CongVanDis.InsertOnSubmit(item);
                 _data.SubmitChanges();
 
@@ -119,7 +116,6 @@ namespace ManagementDispatch.Controllers
             ViewBag.IDPhongBan = new SelectList(_data.PhongBans.ToList().OrderBy(n => n.TenPhongBan), "IDPhongBan", "TenPhongBan");
             ViewBag.IDDonViGui = new SelectList(_data.DonVis.ToList().OrderBy(n => n.TenDonVi), "IDDonVi", "TenDonVi");
             ViewBag.IDDonViNhan = new SelectList(_data.DonVis.ToList().OrderBy(n => n.TenDonVi), "IDDonVi", "TenDonVi");
-            ViewBag.IDCongVanDen = new SelectList(_data.CongVanDens.ToList().OrderBy(n => n.IDCongVanDen), "IDCongVanDen", "IDCongVanDen");
 
             CongVanDi getTextGo = _data.CongVanDis.SingleOrDefault(c => c.IDCongVanDi == id);
             return View(getTextGo);
@@ -148,20 +144,16 @@ namespace ManagementDispatch.Controllers
             }
             int idLoaiCongVan = int.Parse(formCollection["IDLoaiCongVan"]);
             int idDonViGui = int.Parse(formCollection["IDDonViGui"]);
-            int idDonViNhan = int.Parse(formCollection["IDDonViNhan"]);
             string noiDung = formCollection["NoiDungCongViec"];
             DateTime ngayGui = DateTime.Parse(formCollection["NgayGui"]);
-            DateTime ngayNhan = DateTime.Parse(formCollection["ThoiHanHoanThanh"]);
             string tenNguoiGui = formCollection["TenNguoiGui"];
             string anhScan = formCollection["AnhScan"];
 
             getTextGo.IDLoaiCongVan = idLoaiCongVan;
             getTextGo.NoiDungCongViec = noiDung;
             getTextGo.NgayGui = ngayGui;
-            getTextGo.ThoiHanHoanThanh = ngayNhan;
             getTextGo.TenNguoiGui = tenNguoiGui;
             getTextGo.IDDonViGui = idDonViGui;
-            getTextGo.IDDonViNhan = idDonViNhan;
             getTextGo.AnhScan = anhScan;
 
             UpdateModel(getTextGo);

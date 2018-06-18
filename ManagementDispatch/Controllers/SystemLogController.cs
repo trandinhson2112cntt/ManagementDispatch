@@ -14,7 +14,7 @@ namespace ManagementDispatch.Controllers
         // GET: SystemLog
         public ActionResult Index()
         {
-            var getAllLog = _data.NhatKyHeThongs.OrderByDescending(x=>x.NgayGio).ToList();
+            var getAllLog = _data.NhatKyHeThongs.OrderByDescending(x=>x.IDNhatKy).ToList();
             return View(getAllLog);
         }
 
