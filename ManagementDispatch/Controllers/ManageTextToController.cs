@@ -122,9 +122,6 @@ namespace ManagementDispatch.Controllers
            
             if (ModelState.IsValid)
             {
-
-                try
-                {
                     if (uploadFile != null)
                     {
                         //Luu ten file
@@ -139,12 +136,6 @@ namespace ManagementDispatch.Controllers
 
                         getTextTo.File = fileName;
                     }
-
-                }
-                catch (Exception)
-                {
-                    ViewBag.Thongbao = "Vui lòng chọn ảnh cho sản phẩm";
-                }
 
             }
             int idLoaiCongVan = int.Parse(formCollection["IDLoaiCongVan"]);
