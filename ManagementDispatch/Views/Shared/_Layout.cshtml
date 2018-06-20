@@ -55,6 +55,7 @@
                 <!-- logo for regular state and mobile devices -->
                 <span class="logo-lg"><b>Quản lý </b>Công văn</span>
             </a>
+            
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top">
                 <!-- Sidebar toggle button-->
@@ -132,9 +133,14 @@
                     <li class="">
                         <a href="@Url.Action("Index","Statistical")"><i class="fa fa-table fa-fw"></i> <span>Thống kê</span></a>
                     </li>
-
+                    
+                            @Html.Action("SuggestNumberTextNext", "Home")
+                        
+                    
                 </ul>
             </section>
+            
+            
             <!-- /.sidebar -->
         </aside>
         <!-- =============================================== -->

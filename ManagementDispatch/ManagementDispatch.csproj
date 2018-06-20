@@ -178,6 +178,7 @@
       <DependentUpon>DataBase.dbml</DependentUpon>
     </Compile>
     <Compile Include="Models\Statistical.cs" />
+    <Compile Include="Models\SuggestNumberText.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -7900,6 +7901,7 @@
     <Content Include="Views\ManageTextSecret\EditTextToSecret.cshtml" />
     <Content Include="Views\ManageTextSecret\EditTextGoSecret.cshtml" />
     <Content Include="Views\ManageTextSecret\Index.cshtml" />
+    <Content Include="Views\Home\SuggestNumberTextNext.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

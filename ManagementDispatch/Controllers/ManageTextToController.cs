@@ -172,5 +172,19 @@ namespace ManagementDispatch.Controllers
             _data.SubmitChanges();
             return RedirectToAction("Index");
         }
+
+        public string ChangeImage(string id,string picture)
+        {
+            if(id==null)
+            {
+                return "Mã không tồn tại";
+            }
+            CongVanDen textTo = _data.CongVanDens.FirstOrDefault(x => x.IDCongVanDen == id);
+            if (textTo == null) return "Mã không tồn tại";
+            textTo.AnhScan = picture;
+            UpdateModel(textTo);
+            _data.SubmitChanges();
+            return "";
+        }
     }
 }

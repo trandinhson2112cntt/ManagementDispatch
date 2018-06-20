@@ -1,0 +1,20 @@
+﻿@model ManagementDispatch.Models.SuggestNumberText
+
+<div class="" style="margin-top:200px;color:white">
+    <p style="font-size:20px">
+        Tổng số CV : @Model.SUM
+    </p>
+   
+</div>
+<div class="" style="color:white"">
+    <p style="font-size:20px">
+        STT mới nhất: @(Model.Number)
+    </p>
+
+</div>
+<div class=""style="color:white"">
+    <p style="font-size:20px">
+        STT tiếp theo: @(Model.Number +1)
+    </p>
+   
+</div>
