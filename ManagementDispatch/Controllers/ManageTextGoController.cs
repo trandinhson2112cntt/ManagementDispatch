@@ -110,20 +110,20 @@ namespace ManagementDispatch.Controllers
         }
 
         [HttpGet]
-        public ActionResult EditTextGo(string id)
+        public ActionResult EditTextGo(int id)
         {
             ViewBag.IDLoaiCongVan = new SelectList(_data.LoaiCongVans.ToList().OrderBy(n => n.TenLoaiCongVan), "IDLoaiCongVan", "TenLoaiCongVan");
             ViewBag.IDPhongBan = new SelectList(_data.PhongBans.ToList().OrderBy(n => n.TenPhongBan), "IDPhongBan", "TenPhongBan");
             ViewBag.IDDonViGui = new SelectList(_data.DonVis.ToList().OrderBy(n => n.TenDonVi), "IDDonVi", "TenDonVi");
             ViewBag.IDDonViNhan = new SelectList(_data.DonVis.ToList().OrderBy(n => n.TenDonVi), "IDDonVi", "TenDonVi");
 
-            CongVanDi getTextGo = _data.CongVanDis.SingleOrDefault(c => c.IDCongVanDi == id);
+            CongVanDi getTextGo = _data.CongVanDis.SingleOrDefault(c => c.STT == id);
             return View(getTextGo);
         }
         [HttpPost]
-        public ActionResult EditTextGo(string id, FormCollection formCollection, HttpPostedFileBase uploadFile)
+        public ActionResult EditTextGo(int id, FormCollection formCollection, HttpPostedFileBase uploadFile)
         {
-            CongVanDi getTextGo = _data.CongVanDis.SingleOrDefault(c => c.IDCongVanDi == id);
+            CongVanDi getTextGo = _data.CongVanDis.SingleOrDefault(c => c.STT == id);
 
             if (ModelState.IsValid)
             {
@@ -169,6 +169,45 @@ namespace ManagementDispatch.Controllers
             _data.SubmitChanges();
 
 
+            return RedirectToAction("Index");
+        }
+        public bool DeleteText(int id)
+        {
+            try
+            {
+                var getTextGo = _data.CongVanDis.First(x => x.STT == id);
+                string fullPath = Request.MapPath(getTextGo.File);
+                if (System.IO.File.Exists(fullPath))
+                {
+                    System.IO.File.Delete(fullPath);
+                }
+                string fullPath2 = Request.MapPath(getTextGo.AnhScan);
+                if (System.IO.File.Exists(fullPath2))
+                {
+                    System.IO.File.Delete(fullPath2);
+                }
+                _data.CongVanDis.DeleteOnSubmit(getTextGo);
+                _data.SubmitChanges();
+
+                string writeLog = "Xoá công văn đi: " + getTextGo.IDCongVanDi;
+                NhanVien admin = (NhanVien)Session["Admin"];
+                NhatKyHeThong log = new NhatKyHeThong();
+                log.IDNhanVien = admin.IDNhanVien;
+                log.NoiDungNhatKy = writeLog;
+                log.NgayGio = DateTime.Now;
+
+                _data.NhatKyHeThongs.InsertOnSubmit(log);
+                _data.SubmitChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        public ActionResult Delete(int id)
+        {
+            DeleteText(id);
             return RedirectToAction("Index");
         }
     }

@@ -105,20 +105,20 @@ namespace ManagementDispatch.Controllers
         }
 
         [HttpGet]
-        public ActionResult EditTextTo(string id)
+        public ActionResult EditTextTo(int id)
         {
             ViewBag.IDLoaiCongVan = new SelectList(_data.LoaiCongVans.ToList().OrderBy(n => n.TenLoaiCongVan), "IDLoaiCongVan", "TenLoaiCongVan");
             ViewBag.IDPhongBan = new SelectList(_data.PhongBans.ToList().OrderBy(n => n.TenPhongBan), "IDPhongBan", "TenPhongBan");
             ViewBag.IDDonViGui = new SelectList(_data.DonVis.ToList().OrderBy(n => n.TenDonVi), "IDDonVi", "TenDonVi");
             ViewBag.IDDonViNhan = new SelectList(_data.DonVis.ToList().OrderBy(n => n.TenDonVi), "IDDonVi", "TenDonVi");
 
-            CongVanDen getTextTo = _data.CongVanDens.SingleOrDefault(c => c.IDCongVanDen == id);
+            CongVanDen getTextTo = _data.CongVanDens.SingleOrDefault(c => c.STT == id);
             return View(getTextTo);
         }
         [HttpPost]
-        public ActionResult EditTextTo(string id, FormCollection formCollection, HttpPostedFileBase uploadFile)
+        public ActionResult EditTextTo(int id, FormCollection formCollection, HttpPostedFileBase uploadFile)
         {
-            CongVanDen getTextTo = _data.CongVanDens.SingleOrDefault(c => c.IDCongVanDen == id);
+            CongVanDen getTextTo = _data.CongVanDens.SingleOrDefault(c => c.STT == id);
            
             if (ModelState.IsValid)
             {
@@ -173,18 +173,63 @@ namespace ManagementDispatch.Controllers
             return RedirectToAction("Index");
         }
 
-        public string ChangeImage(string id,string picture)
+        public string ChangeImage(int id,string picture)
         {
-            if(id==null)
-            {
-                return "Mã không tồn tại";
-            }
-            CongVanDen textTo = _data.CongVanDens.FirstOrDefault(x => x.IDCongVanDen == id);
+            CongVanDen textTo = _data.CongVanDens.FirstOrDefault(x => x.STT == id);
             if (textTo == null) return "Mã không tồn tại";
             textTo.AnhScan = picture;
             UpdateModel(textTo);
             _data.SubmitChanges();
             return "";
+        }
+
+        public bool DeleteText(int id)
+        {
+            try
+            {
+                var getTextTo = _data.CongVanDens.First(x => x.STT == id);
+                _data.CongVanDens.DeleteOnSubmit(getTextTo);
+                _data.SubmitChanges();
+
+                string writeLog = "Xoá công văn đến: " + getTextTo.IDCongVanDen;
+                NhanVien admin = (NhanVien)Session["Admin"];
+                NhatKyHeThong log = new NhatKyHeThong();
+                log.IDNhanVien = admin.IDNhanVien;
+                log.NoiDungNhatKy = writeLog;
+                log.NgayGio = DateTime.Now;
+                _data.NhatKyHeThongs.InsertOnSubmit(log);
+                _data.SubmitChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        //[HttpPost]
+        public ActionResult Delete(int id)
+        {
+            try
+            {
+                var getTextTo = _data.CongVanDens.First(x => x.STT == id);
+                _data.CongVanDens.DeleteOnSubmit(getTextTo);
+                _data.SubmitChanges();
+
+                string writeLog = "Xoá công văn đến: " + getTextTo.IDCongVanDen;
+                NhanVien admin = (NhanVien)Session["Admin"];
+                NhatKyHeThong log = new NhatKyHeThong();
+                log.IDNhanVien = admin.IDNhanVien;
+                log.NoiDungNhatKy = writeLog;
+                log.NgayGio = DateTime.Now;
+                _data.NhatKyHeThongs.InsertOnSubmit(log);
+                _data.SubmitChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index");
+            }
+
         }
     }
 }

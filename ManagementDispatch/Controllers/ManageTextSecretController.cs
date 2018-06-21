@@ -31,20 +31,20 @@ namespace ManagementDispatch.Controllers
             return PartialView(getListTextGoSecret);
         }
         [HttpGet]
-        public ActionResult EditTextToSecret(string id)
+        public ActionResult EditTextToSecret(int id)
         {
             ViewBag.IDLoaiCongVan = new SelectList(_data.LoaiCongVans.ToList().OrderBy(n => n.TenLoaiCongVan), "IDLoaiCongVan", "TenLoaiCongVan");
             ViewBag.IDPhongBan = new SelectList(_data.PhongBans.ToList().OrderBy(n => n.TenPhongBan), "IDPhongBan", "TenPhongBan");
             ViewBag.IDDonViGui = new SelectList(_data.DonVis.ToList().OrderBy(n => n.TenDonVi), "IDDonVi", "TenDonVi");
             ViewBag.IDDonViNhan = new SelectList(_data.DonVis.ToList().OrderBy(n => n.TenDonVi), "IDDonVi", "TenDonVi");
 
-            CongVanDen getTextTo = _data.CongVanDens.SingleOrDefault(c => c.IDCongVanDen == id);
+            CongVanDen getTextTo = _data.CongVanDens.SingleOrDefault(c => c.STT == id);
             return View(getTextTo);
         }
         [HttpPost]
-        public ActionResult EditTextToSecret(string id, FormCollection formCollection, HttpPostedFileBase uploadFile)
+        public ActionResult EditTextToSecret(int id, FormCollection formCollection, HttpPostedFileBase uploadFile)
         {
-            CongVanDen getTextTo = _data.CongVanDens.SingleOrDefault(c => c.IDCongVanDen == id);
+            CongVanDen getTextTo = _data.CongVanDens.SingleOrDefault(c => c.STT == id);
 
             if (ModelState.IsValid)
             {
@@ -100,20 +100,20 @@ namespace ManagementDispatch.Controllers
         }
 
         [HttpGet]
-        public ActionResult EditTextGoSecret(string id)
+        public ActionResult EditTextGoSecret(int id)
         {
             ViewBag.IDLoaiCongVan = new SelectList(_data.LoaiCongVans.ToList().OrderBy(n => n.TenLoaiCongVan), "IDLoaiCongVan", "TenLoaiCongVan");
             ViewBag.IDPhongBan = new SelectList(_data.PhongBans.ToList().OrderBy(n => n.TenPhongBan), "IDPhongBan", "TenPhongBan");
             ViewBag.IDDonViGui = new SelectList(_data.DonVis.ToList().OrderBy(n => n.TenDonVi), "IDDonVi", "TenDonVi");
             ViewBag.IDDonViNhan = new SelectList(_data.DonVis.ToList().OrderBy(n => n.TenDonVi), "IDDonVi", "TenDonVi");
 
-            CongVanDi getTextGo = _data.CongVanDis.SingleOrDefault(c => c.IDCongVanDi == id);
+            CongVanDi getTextGo = _data.CongVanDis.SingleOrDefault(c => c.STT == id);
             return View(getTextGo);
         }
         [HttpPost]
-        public ActionResult EditTextGoSecret(string id, FormCollection formCollection, HttpPostedFileBase uploadFile)
+        public ActionResult EditTextGoSecret(int id, FormCollection formCollection, HttpPostedFileBase uploadFile)
         {
-            CongVanDi getTextGo = _data.CongVanDis.SingleOrDefault(c => c.IDCongVanDi == id);
+            CongVanDi getTextGo = _data.CongVanDis.SingleOrDefault(c => c.STT == id);
 
             if (ModelState.IsValid)
             {

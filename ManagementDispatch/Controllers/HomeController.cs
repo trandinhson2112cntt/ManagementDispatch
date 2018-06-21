@@ -61,18 +61,25 @@ namespace ManagementDispatch.Controllers
         {
             int countTextTo = _data.CongVanDens.Count();
             int countTextGo = _data.CongVanDis.Count();
-            var getNewTextTo = _data.CongVanDens.OrderByDescending(x => x.STT).First();
-            int index = getNewTextTo.IDCongVanDen.IndexOf("/");
-            string getStringSuggest = getNewTextTo.IDCongVanDen.Substring(0, index);
-            int number=0;
+            var getNewTextTo = _data.CongVanDens.OrderByDescending(x => x.STT).FirstOrDefault();
+            int index = 0,index2=0,number = 0, number2 = 0;
+            string getStringSuggest = null;
+            if (getNewTextTo != null)
+            {
+                index = getNewTextTo.IDCongVanDen.IndexOf("/");
+                getStringSuggest = getNewTextTo.IDCongVanDen.Substring(0, index);
+            }
             if (getStringSuggest != null)
                 number = int.Parse(getStringSuggest);
-
-            var getNewTextGo = _data.CongVanDis.OrderByDescending(x => x.STT).First();
-            int index2 = getNewTextGo.IDCongVanDi.IndexOf("/");
-            string getStringSuggest2 = getNewTextGo.IDCongVanDi.Substring(0, index);
-            int number2 = 0;
-            if (getStringSuggest != null)
+            var getNewTextGo = _data.CongVanDis.OrderByDescending(x => x.STT).FirstOrDefault();
+           
+            string getStringSuggest2 = null;
+            if (getNewTextGo != null)
+            {
+                index2 = getNewTextGo.IDCongVanDi.IndexOf("/");
+                getStringSuggest2 = getNewTextGo.IDCongVanDi.Substring(0, index2);
+            }
+            if (getStringSuggest2 != null)
                 number2 = int.Parse(getStringSuggest2);
             int selectNumber = number;
             if (number2 > number)

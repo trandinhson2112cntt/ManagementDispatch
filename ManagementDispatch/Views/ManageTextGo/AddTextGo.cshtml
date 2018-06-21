@@ -67,19 +67,19 @@
     <div class="form-group">
         @Html.LabelFor(model => model.IDLoaiCongVan, "Loại công văn:", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownList("IDLoaiCongVan")
+            @Html.DropDownListFor(model => model.IDLoaiCongVan, null, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(model => model.IDDonViGui, "Đơn vị gửi: ", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownList("IDDonViGui")
+            @Html.DropDownListFor(model => model.IDDonViGui, null, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(model => model.IDDonViGui, "Phòng ban: ", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownList("IDPhongBan")
+            @Html.DropDownListFor(model => model.IDPhongBan, null, new { @class = "form-control" })
         </div>
     </div>
 

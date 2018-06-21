@@ -45,7 +45,13 @@
                             <td class="center">@Html.ActionLink("Download", "Download", new { fileName = item.File })</td>
                             <td class="center"> <img src="@Url.Content("~/"+item.AnhScan)" width="60px" height="50px"></td>
                             <td class="center">
-                                @Html.ActionLink("Sửa", "EditTextGo", new { id = item.IDCongVanDi })
+                                @Html.ActionLink("Sửa", "EditTextGo", new { id = item.STT }, htmlAttributes: new { @class = "btn btn-primary" }) |
+                                @Ajax.ActionLink("Xóa","Delete",new { @id = item.STT},new AjaxOptions
+                                  {
+                                      Confirm = "Bạn có muốn xóa công văn này?",
+                                      OnComplete = "$('#row_"+@item.STT+"').remove()",
+                                      HttpMethod = "Delete"
+                                  }, htmlAttributes: new { @class = "btn btn-danger" })
                             </td>
                         </tr>
                         }

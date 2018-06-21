@@ -13,8 +13,9 @@ namespace ManagementDispatch.Controllers
         // GET: Statistical
         public ActionResult Index()
         {
-            int countTextTo = _data.CongVanDens.Count();
-            int countTextGo = _data.CongVanDis.Count();
+            int countTextTo = 0, countTextGo = 0;
+            countTextTo = _data.CongVanDens.Count();
+            countTextGo = _data.CongVanDis.Count();
             var statistical = new Statistical()
             {
                 CountTextTo = countTextTo,
