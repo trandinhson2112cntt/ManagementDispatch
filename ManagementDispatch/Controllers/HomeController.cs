@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using ManagementDispatch.Models;
@@ -52,6 +55,77 @@ namespace ManagementDispatch.Controllers
             Session["Admin"] = null;
             return View("LoginAdmin");
         }
+        private int RandomNumber(int min, int max)
+        {
+            Random random = new Random();
+            return random.Next(min, max);
+        }
+        private string RandomString(int size, bool lowerCase)
+        {
+            StringBuilder builder = new StringBuilder();
+            Random random = new Random();
+            char ch;
+            for (int i = 0; i < size; i++)
+            {
+                ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65)));
+                builder.Append(ch);
+            }
+            if (lowerCase)
+                return builder.ToString().ToLower();
+            return builder.ToString();
+        }
+        public string GetPassword()
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.Append(RandomString(4, true));
+            builder.Append(RandomNumber(1000, 9999));
+            builder.Append(RandomString(2, false));
+            return builder.ToString();
+        }
+
+        [HttpGet]
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ForgotPassword(FormCollection formCollection)
+        {
+            string username = formCollection["username"];
+
+            var getAdmin = _data.NhanViens.First(x => x.Username == username);
+            if (getAdmin == null)
+            {
+                ViewBag.ThongBao = "Không tìm thấy Username!!!";
+                return View();
+            }
+            SmtpClient smtp = new SmtpClient();
+            try
+            {
+                string newPassword = GetPassword();
+                getAdmin.Password = newPassword;
+                UpdateModel(getAdmin);
+                _data.SubmitChanges();
+                //ĐỊA CHỈ SMTP Server
+                smtp.Host = "smtp.gmail.com";
+                //Cổng SMTP
+                smtp.Port = 587;
+                //SMTP yêu cầu mã hóa dữ liệu theo SSL
+                smtp.EnableSsl = true;
+                //UserName và Password của mail
+                smtp.Credentials = new NetworkCredential("chandinhnui@gmail.com", "dknight2112");
+
+                //Tham số lần lượt là địa chỉ người gửi, người nhận, tiêu đề và nội dung thư
+                smtp.Send("chandinhnui@gmail.com", getAdmin.Email, "Cấp lại mật khẩu", "Mật khẩu mới của tài khoản là: " + newPassword );
+                ViewBag.ThongBao = "Gửi thành công!!!";
+            }
+            catch (Exception ex)
+            {
+               // lbStatus.Text = ex.Message;
+            }
+            return View();
+        }
+
         public ActionResult NotificationAuthorize()
         {
             return View();
