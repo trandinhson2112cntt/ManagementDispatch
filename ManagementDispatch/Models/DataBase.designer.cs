@@ -2325,7 +2325,7 @@ namespace ManagementDispatch.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Username", DbType="Char(20)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Username", DbType="VarChar(20)")]
 		public string Username
 		{
 			get
@@ -2345,7 +2345,7 @@ namespace ManagementDispatch.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Password", DbType="Char(20)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Password", DbType="VarChar(20)")]
 		public string Password
 		{
 			get
@@ -2365,7 +2365,7 @@ namespace ManagementDispatch.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="Char(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="VarChar(50)")]
 		public string Email
 		{
 			get
@@ -2405,7 +2405,7 @@ namespace ManagementDispatch.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SDT", DbType="Char(15)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SDT", DbType="VarChar(50)")]
 		public string SDT
 		{
 			get

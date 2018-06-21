@@ -100,11 +100,11 @@
     <Type Name="NhanVien">
       <Column Name="IDNhanVien" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="HoTen" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Username" Type="System.String" DbType="Char(20)" CanBeNull="true" />
-      <Column Name="Password" Type="System.String" DbType="Char(20)" CanBeNull="true" />
-      <Column Name="Email" Type="System.String" DbType="Char(50)" CanBeNull="true" />
+      <Column Name="Username" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="NgaySinh" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
-      <Column Name="SDT" Type="System.String" DbType="Char(15)" CanBeNull="true" />
+      <Column Name="SDT" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="IDPhongBan" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Lock" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Association Name="NhanVien_GrantPermission" Member="GrantPermissions" ThisKey="IDNhanVien" OtherKey="IDNhanVien" Type="GrantPermission" />

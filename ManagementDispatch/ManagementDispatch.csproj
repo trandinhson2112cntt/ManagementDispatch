@@ -7906,6 +7906,8 @@
     <Content Include="Views\ManageTextSecret\Index.cshtml" />
     <Content Include="Views\Home\SuggestNumberTextNext.cshtml" />
     <Content Include="Views\Home\ForgotPassword.cshtml" />
+    <Content Include="Views\Admin\EditProfile.cshtml" />
+    <Content Include="Views\Admin\ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

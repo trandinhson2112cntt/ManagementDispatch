@@ -14,3 +14,5 @@
     <li class="list-group-item">Ngày sinh: @Model.NgaySinh.ToString(string.Format("dd/MM/yyyy"))</li>
     <li class="list-group-item">SĐT:       @Model.SDT</li>
 </ul>
+@Html.ActionLink("Sửa hồ sơ", "EditProfile", "Admin", htmlAttributes: new { @class = "btn btn-primary" })
+@Html.ActionLink("Đổi mật khẩu", "ChangePassword", "Admin", htmlAttributes: new { @class = "btn btn-primary" })

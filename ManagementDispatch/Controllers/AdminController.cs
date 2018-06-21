@@ -16,7 +16,7 @@ namespace ManagementDispatch.Controllers
         {
             return View();
         }
-       
+
 
         public ActionResult InfoAdminLogin()
         {
@@ -34,16 +34,73 @@ namespace ManagementDispatch.Controllers
         public ActionResult ProfileAdmin()
         {
             NhanVien admin = (NhanVien)Session["Admin"];
-            if (admin != null)
-            {
-                var getInfoAdmin = _data.NhanViens.First(k => k.IDNhanVien == admin.IDNhanVien);
-                return View(getInfoAdmin);
-            }
-            else
-            {
-                return View("LoginAdmin");
-            }
+
+            var getInfoAdmin = _data.NhanViens.First(k => k.IDNhanVien == admin.IDNhanVien);
+            return View(getInfoAdmin);
+
         }
+        [HttpGet]
+        public ActionResult EditProfile()
+        {
+            NhanVien admin = (NhanVien)Session["Admin"];
+
+            var getInfoAdmin = _data.NhanViens.First(k => k.IDNhanVien == admin.IDNhanVien);
+            return View(getInfoAdmin);
+
+        }
+        [HttpPost]
+        public ActionResult EditProfile(FormCollection formCollection)
+        {
+            NhanVien admin = (NhanVien)Session["Admin"];
+            var getInfoAdmin = _data.NhanViens.First(k => k.IDNhanVien == admin.IDNhanVien);
+            string name = formCollection["hoten"];
+            string email = formCollection["email"];
+            DateTime birthday = DateTime.Parse(formCollection["ngaysinh"]);
+            string tel = formCollection["sdt"];
+            getInfoAdmin.HoTen = name;
+            getInfoAdmin.NgaySinh = birthday.Date;
+            getInfoAdmin.SDT = tel;
+            getInfoAdmin.Email = email;
+
+            UpdateModel(getInfoAdmin);
+            _data.SubmitChanges();
+            return View(getInfoAdmin);
+
+        }
+
+        [HttpGet]
+        public ActionResult ChangePassword()
+        {
+            NhanVien admin = (NhanVien)Session["Admin"];
+
+            var getInfoAdmin = _data.NhanViens.First(k => k.IDNhanVien == admin.IDNhanVien);
+            return View(getInfoAdmin);
+
+        }
+        [HttpPost]
+        public ActionResult ChangePassword(FormCollection formCollection)
+        {
+            NhanVien admin = (NhanVien)Session["Admin"];
+            var getInfoAdmin = _data.NhanViens.First(k => k.IDNhanVien == admin.IDNhanVien);
+            string oldpassword = formCollection["oldpassword"];
+            string newpassword = formCollection["newpassword"];
+            string confirmpassword = formCollection["confirmpassword"];
+
+            if (oldpassword != getInfoAdmin.Password)
+                ViewBag.Validate = "Sai mật khẩu cũ";
+            if (newpassword == confirmpassword)
+                ViewBag.Validate = "Mật khẩu mới không trùng khớp";
+            if (oldpassword == getInfoAdmin.Password && newpassword == confirmpassword)
+            {
+                getInfoAdmin.Password = newpassword;
+            }
+
+            UpdateModel(getInfoAdmin);
+            _data.SubmitChanges();
+            return View("ProfileAdmin");
+
+        }
+
         //---------------------------
         public ActionResult ListAdmin()
         {
@@ -137,7 +194,7 @@ namespace ManagementDispatch.Controllers
 
         public ActionResult ListPermission(string id)
         {
-            var getListPermission = _data.BlogPermissions.Where(x=>x.BusinessId == id).ToList();
+            var getListPermission = _data.BlogPermissions.Where(x => x.BusinessId == id).ToList();
             return View(getListPermission);
         }
         [HttpGet]
@@ -156,7 +213,7 @@ namespace ManagementDispatch.Controllers
                 UpdateModel(blogPermission);
                 _data.SubmitChanges();
 
-                return RedirectToAction("ListPermission", new { id = blogPermission.BusinessId});
+                return RedirectToAction("ListPermission", new { id = blogPermission.BusinessId });
             }
             catch
             {
@@ -184,7 +241,7 @@ namespace ManagementDispatch.Controllers
                 List<string> listPermission = rc.GetActions(c);
                 foreach (var p in listPermission)
                 {
-                    if (!listPermessionOld.Contains(c.Name+"-"+p))
+                    if (!listPermessionOld.Contains(c.Name + "-" + p))
                     {
                         BlogPermission permission = new BlogPermission() { PermissionName = c.Name + "-" + p, Description = "Chưa có mô tả", BusinessId = c.Name };
                         _data.BlogPermissions.InsertOnSubmit(permission);
@@ -195,6 +252,6 @@ namespace ManagementDispatch.Controllers
 
             return RedirectToAction("ListRole");
         }
-        
+
     }
 }
