@@ -3,20 +3,61 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="row">
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-aqua"><i class="fa fa-envelope-o"></i></span>
 
-<p>Số công văn đến: @Model.CountTextTo</p>
-<br />
-<p>Số công văn đi: @Model.CountTextGo</p>
-<br />
-<p class="">Tổng số công văn: @Model.SUM</p>
-<p style="font-size:30px">Thống kê số lượng công văn</p>
+            <div class="info-box-content">
+                <span class="info-box-text">Số công văn đến </span>
+                <span class="info-box-number">@Model.CountTextTo<small></small></span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-red"><i class="fa fa-files-o"></i></span>
 
-@using (Html.BeginForm("CountText", "Statistical", FormMethod.Post))
-{
-    <label>Từ ngày:</label>
-    <input type="date" name="inputDayFirst" />
-    <label>Đến ngày:</label>
-    <input type="date" name="inputDayLast" />
-    <input type="submit" value="Thống kê"/>
-}
+            <div class="info-box-content">
+                <span class="info-box-text">Số công văn đi </span>
+                <span class="info-box-number">@Model.CountTextGo</span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div><div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-green"><i class="fa fa-star-o"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Tổng số:</span>
+                <span class="info-box-number"> @Model.SUM</span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+</div>
+</br>
+
+<div class="container">
+    <p style="font-size:30px">Thống kê số lượng công văn</p>
+    @using (Html.BeginForm("CountText", "Statistical", FormMethod.Post))
+    {
+        <label>Từ ngày:</label>
+        <input type="date" name="inputDayFirst" placeholder="Chọn ngày" class="form-control" value="null" />
+        <label>Đến ngày:</label>
+        <input type="date" name="inputDayLast" class="form-control" value="null" />
+        <label>Loại công văn:</label>
+        @Html.DropDownList("IDLoaiCongVan", null, "Trống", htmlAttributes: new { @class = "form-control" })
+        <label>Phòng ban:</label>
+        @Html.DropDownList("IDPhongBan", null, "Trống", htmlAttributes: new { @class = "form-control" })
+        <label>Đơn vị:</label>
+        @Html.DropDownList("IDDonViGui", null, "Trống", htmlAttributes: new { @class = "form-control" })
+
+        <input type="submit" value="Thống kê" class="btn btn-success" />
+    }
+</div>
 

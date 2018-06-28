@@ -1,20 +1,59 @@
 ﻿@model ManagementDispatch.Models.SuggestNumberText
 
-<div class="" style="margin-top:200px;color:white">
-    <p style="font-size:20px">
-        Tổng số CV : @Model.SUM
-    </p>
-   
-</div>
-<div class="" style="color:white"">
-    <p style="font-size:20px">
-        STT mới nhất: @(Model.Number)
-    </p>
+<div class="row" style="margin:5px;margin-top:10px;">
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-aqua"><i class="fa fa-envelope-o"></i></span>
 
-</div>
-<div class=""style="color:white"">
-    <p style="font-size:20px">
-        STT tiếp theo: @(Model.Number +1)
-    </p>
-   
+            <div class="info-box-content">
+                <span class="info-box-text">Số công văn đến </span>
+                <span class="info-box-number">@Model.CountTextTo<small></small></span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-red"><i class="fa fa-files-o"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Số công văn đi </span>
+                <span class="info-box-number">@Model.CountTextGo</span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+    <!-- fix for small devices only -->
+    <div class="clearfix visible-sm-block"></div>
+
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-green"><i class="fa fa-star-o"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Số công văn mới</span>
+                <span class="info-box-number"> @Model.Number</span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-yellow"><i class="fa fa-flag-o"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Số công văn tiếp:</span>
+                <span class="info-box-number"> @(Model.Number + 1)</span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
 </div>

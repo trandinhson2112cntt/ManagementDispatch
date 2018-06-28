@@ -22,10 +22,10 @@ namespace ManagementDispatch.Controllers
         [HttpGet]
         public ActionResult AddTextGo()
         {
-            ViewBag.IDLoaiCongVan = new SelectList(_data.LoaiCongVans.ToList().OrderBy(n => n.TenLoaiCongVan), "IDLoaiCongVan", "TenLoaiCongVan");
-            ViewBag.IDDonViGui = new SelectList(_data.DonVis.ToList().OrderBy(n => n.TenDonVi), "IDDonVi", "TenDonVi");
-            ViewBag.IDDonViNhan = new SelectList(_data.DonVis.ToList().OrderBy(n => n.TenDonVi), "IDDonVi", "TenDonVi");
-            ViewBag.IDPhongBan = new SelectList(_data.PhongBans.ToList().OrderBy(n => n.TenPhongBan), "IDPhongBan", "TenPhongBan");
+            ViewBag.IDLoaiCongVan = new SelectList(_data.LoaiCongVans.ToList().OrderBy(n => n.IDLoaiCongVan), "IDLoaiCongVan", "TenLoaiCongVan");
+            ViewBag.IDDonViGui = new SelectList(_data.DonVis.ToList().OrderBy(n => n.IDDonVi ), "IDDonVi", "TenDonVi");
+            ViewBag.IDDonViNhan = new SelectList(_data.DonVis.ToList().OrderBy(n => n.IDDonVi ), "IDDonVi", "TenDonVi");
+            ViewBag.IDPhongBan = new SelectList(_data.PhongBans.ToList().OrderBy(n => n.IDPhongBan ), "IDPhongBan", "TenPhongBan");
             return View();
         }
 
@@ -34,10 +34,10 @@ namespace ManagementDispatch.Controllers
         [HttpPost]
         public ActionResult AddTextGo(CongVanDi item, FormCollection formCollection, HttpPostedFileBase uploadFile)
         {
-            ViewBag.IDLoaiCongVan = new SelectList(_data.LoaiCongVans.ToList().OrderBy(n => n.TenLoaiCongVan), "IDLoaiCongVan", "TenLoaiCongVan");
-            ViewBag.IDDonViGui = new SelectList(_data.DonVis.ToList().OrderBy(n => n.TenDonVi), "IDDonVi", "TenDonVi");
-            ViewBag.IDDonViNhan = new SelectList(_data.DonVis.ToList().OrderBy(n => n.TenDonVi), "IDDonVi", "TenDonVi");
-            ViewBag.IDPhongBan = new SelectList(_data.PhongBans.ToList().OrderBy(n => n.TenPhongBan), "IDPhongBan", "TenPhongBan");
+            ViewBag.IDLoaiCongVan = new SelectList(_data.LoaiCongVans.ToList().OrderBy(n => n.IDLoaiCongVan ), "IDLoaiCongVan", "TenLoaiCongVan");
+            ViewBag.IDDonViGui = new SelectList(_data.DonVis.ToList().OrderBy(n => n.IDDonVi ), "IDDonVi", "TenDonVi");
+            ViewBag.IDDonViNhan = new SelectList(_data.DonVis.ToList().OrderBy(n => n.IDDonVi ), "IDDonVi", "TenDonVi");
+            ViewBag.IDPhongBan = new SelectList(_data.PhongBans.ToList().OrderBy(n => n.IDPhongBan ), "IDPhongBan", "TenPhongBan");
             try
             {
                 ViewBag.Validate = " ";

@@ -29,7 +29,7 @@
     </Type>
   </Table>
   <Table Name="dbo.CongVanDen" Member="CongVanDens">
-    <Type Name="CongVanDen">
+    <Type Name="CongVanDen" Id="ID1">
       <Column Name="IDCongVanDen" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
       <Column Name="IDLoaiCongVan" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="NoiDung" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
@@ -51,7 +51,7 @@
     </Type>
   </Table>
   <Table Name="dbo.CongVanDi" Member="CongVanDis">
-    <Type Name="CongVanDi">
+    <Type Name="CongVanDi" Id="ID2">
       <Column Name="IDCongVanDi" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
       <Column Name="IDLoaiCongVan" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="TenNguoiGui" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
@@ -121,4 +121,32 @@
       <Association Name="NhanVien_NhatKyHeThong" Member="NhanVien" ThisKey="IDNhanVien" OtherKey="IDNhanVien" Type="NhanVien" IsForeignKey="true" />
     </Type>
   </Table>
+  <Function Name="dbo.TimKiemCongVanDen" Method="TimKiemCongVanDen">
+    <Parameter Name="NgayBatDau" Parameter="ngayBatDau" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="NgayKetThuc" Parameter="ngayKetThuc" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="idphongban" Type="System.String" DbType="VarChar(1)" />
+    <Parameter Name="iddonvigui" Type="System.String" DbType="VarChar(1)" />
+    <Parameter Name="idloaicongvan" Type="System.String" DbType="VarChar(1)" />
+    <ElementType IdRef="ID1" />
+  </Function>
+  <Function Name="dbo.TimKiemCongVanDi_2" Method="TimKiemCongVanDi_2">
+    <Parameter Name="idphongban" Type="System.String" DbType="VarChar(1)" />
+    <Parameter Name="iddonvigui" Type="System.String" DbType="VarChar(1)" />
+    <Parameter Name="idloaicongvan" Type="System.String" DbType="VarChar(1)" />
+    <ElementType IdRef="ID2" />
+  </Function>
+  <Function Name="dbo.TimKiemCongVanDen_2" Method="TimKiemCongVanDen_2">
+    <Parameter Name="idphongban" Type="System.String" DbType="VarChar(1)" />
+    <Parameter Name="iddonvigui" Type="System.String" DbType="VarChar(1)" />
+    <Parameter Name="idloaicongvan" Type="System.String" DbType="VarChar(1)" />
+    <ElementType IdRef="ID1" />
+  </Function>
+  <Function Name="dbo.TimKiemCongVanDi" Method="TimKiemCongVanDi">
+    <Parameter Name="NgayBatDau" Parameter="ngayBatDau" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="NgayKetThuc" Parameter="ngayKetThuc" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="idphongban" Type="System.String" DbType="VarChar(1)" />
+    <Parameter Name="iddonvigui" Type="System.String" DbType="VarChar(1)" />
+    <Parameter Name="idloaicongvan" Type="System.String" DbType="VarChar(1)" />
+    <ElementType IdRef="ID2" />
+  </Function>
 </Database>

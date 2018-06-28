@@ -35,16 +35,18 @@ namespace ManagementDispatch.Controllers
             else
             {
                 NhanVien ad = _data.NhanViens.SingleOrDefault(n => n.Username == username && n.Password == password);
-                if (ad != null)
+                if (ad != null && ad.Lock == true)
                 {
                     Session["Admin"] = ad;
                     Session["userId"] = ad.IDNhanVien;
-
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    ViewBag.Thongbao = "Tên đăng nhập hoặc mật khẩu không chính xác";
+                    if (ad != null && ad.Lock == false)
+                        ViewBag.Thongbao = "Tài khoản đã bị khóa bởi Admin";
+                    else
+                        ViewBag.Thongbao = "Tên đăng nhập hoặc mật khẩu không chính xác";
                 }
             }
             return View();

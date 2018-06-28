@@ -171,6 +171,34 @@ namespace ManagementDispatch.Models
 				return this.GetTable<NhatKyHeThong>();
 			}
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.TimKiemCongVanDen")]
+		public ISingleResult<CongVanDen> TimKiemCongVanDen([global::System.Data.Linq.Mapping.ParameterAttribute(Name="NgayBatDau", DbType="Date")] System.Nullable<System.DateTime> ngayBatDau, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NgayKetThuc", DbType="Date")] System.Nullable<System.DateTime> ngayKetThuc, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(1)")] string idphongban, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(1)")] string iddonvigui, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(1)")] string idloaicongvan)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), ngayBatDau, ngayKetThuc, idphongban, iddonvigui, idloaicongvan);
+			return ((ISingleResult<CongVanDen>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.TimKiemCongVanDi_2")]
+		public ISingleResult<CongVanDi> TimKiemCongVanDi_2([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(1)")] string idphongban, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(1)")] string iddonvigui, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(1)")] string idloaicongvan)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idphongban, iddonvigui, idloaicongvan);
+			return ((ISingleResult<CongVanDi>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.TimKiemCongVanDen_2")]
+		public ISingleResult<CongVanDen> TimKiemCongVanDen_2([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(1)")] string idphongban, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(1)")] string iddonvigui, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(1)")] string idloaicongvan)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), idphongban, iddonvigui, idloaicongvan);
+			return ((ISingleResult<CongVanDen>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.TimKiemCongVanDi")]
+		public ISingleResult<CongVanDi> TimKiemCongVanDi([global::System.Data.Linq.Mapping.ParameterAttribute(Name="NgayBatDau", DbType="Date")] System.Nullable<System.DateTime> ngayBatDau, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NgayKetThuc", DbType="Date")] System.Nullable<System.DateTime> ngayKetThuc, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(1)")] string idphongban, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(1)")] string iddonvigui, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(1)")] string idloaicongvan)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), ngayBatDau, ngayKetThuc, idphongban, iddonvigui, idloaicongvan);
+			return ((ISingleResult<CongVanDi>)(result.ReturnValue));
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BlogBusiness")]

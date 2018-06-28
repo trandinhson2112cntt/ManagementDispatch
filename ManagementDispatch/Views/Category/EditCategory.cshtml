@@ -6,26 +6,30 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<p style="font-size:30px">Sửa tên loại công văn</p>
-<hr />
-@using (Html.BeginForm("EditCategory", "Category", FormMethod.Post))
-{
-    @Html.AntiForgeryToken()
-    <div class="form-horizontal">
+<div class="box box-solid">
+    <div class="box-body">
+        <h1>Sửa tên loại công văn</h1>
         <hr />
-        <div class="form-group">
-            @Html.LabelFor(model => model.TenLoaiCongVan, "Tên loại công văn", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TenLoaiCongVan, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TenLoaiCongVan, "", new { @class = "text-danger" })
+        @using (Html.BeginForm("EditCategory", "Category", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+                <hr />
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TenLoaiCongVan, "Tên loại công văn", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.TenLoaiCongVan, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TenLoaiCongVan, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <br />
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Lưu" class="btn btn-primary" />
+                    </div>
+                </div>
             </div>
-        </div>
-        
-        <br />
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Lưu" class="btn btn-primary" />
-            </div>
-        </div>
+        }
     </div>
-}
+</div>

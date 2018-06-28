@@ -13,6 +13,10 @@ namespace ManagementDispatch.Controllers
         // GET: Statistical
         public ActionResult Index()
         {
+            ViewBag.IDLoaiCongVan = new SelectList(_data.LoaiCongVans.ToList().OrderBy(n => n.IDLoaiCongVan), "IDLoaiCongVan", "TenLoaiCongVan");
+            ViewBag.IDPhongBan = new SelectList(_data.PhongBans.ToList().OrderBy(n => n.IDPhongBan), "IDPhongBan", "TenPhongBan");
+            ViewBag.idDonViGui = new SelectList(_data.DonVis.ToList().OrderBy(n => n.IDDonVi), "IDDonVi", "TenDonVi");
+
             int countTextTo = 0, countTextGo = 0;
             countTextTo = _data.CongVanDens.Count();
             countTextGo = _data.CongVanDis.Count();
@@ -27,15 +31,45 @@ namespace ManagementDispatch.Controllers
         [HttpPost]
         public ActionResult CountText(FormCollection formCollection)
         {
-            DateTime dateFirst =DateTime.Parse(formCollection["inputDayFirst"]);
-            DateTime dateLast = DateTime.Parse(formCollection["inputDayLast"]);
-
+            string dateFirst = null;
+            if (formCollection["inputDayFirst"] != "")
+                dateFirst = formCollection["inputDayFirst"];
+            string dateLast = null;
+            if (formCollection["inputDayLast"] != "")
+                dateLast = formCollection["inputDayLast"];
             Session["dateFirst"] = dateFirst;
             Session["dateLast"] = dateLast;
 
-            int countTextTo = _data.CongVanDens.Where(x=>x.NgayNhan >= dateFirst && x.NgayNhan<=dateLast).Count();
-            int countTextGo = _data.CongVanDis.Where(x => x.NgayGui >= dateFirst && x.NgayGui <= dateLast).Count();
+            string idLoaiCongVan = null;
+            if (formCollection["IDLoaiCongVan"] != "")
+                idLoaiCongVan  = formCollection["IDLoaiCongVan"];
+            string idPhongBan = null;
+            if (formCollection["IDPhongBan"] != "")
+                idPhongBan = formCollection["IDPhongBan"];
+            string idDonViGui = null;
+            if (formCollection["IDDonViGui"] != "")
+                idDonViGui = formCollection["IDDonViGui"];
+            Session["IDLoaiCongVan"] = idLoaiCongVan;
+            Session["IDPhongBan"] = idPhongBan;
+            Session["IDDonViGui"] = idDonViGui;
 
+            int countTextGo, countTextTo;
+            if((dateFirst==null && dateLast !=null) || (dateFirst != null && dateLast == null))
+            {
+                var script = @"alert(""Vui lòng chọn đầy đủ thông tin ngày!!!"");";
+                return JavaScript(script);
+            }
+            if (dateFirst == null && dateLast == null)
+            {
+                countTextGo = _data.TimKiemCongVanDi_2(idPhongBan, idDonViGui, idLoaiCongVan).Count();
+                countTextTo = _data.TimKiemCongVanDen_2(idPhongBan, idDonViGui, idLoaiCongVan).Count();
+            }
+            else
+            {
+                countTextGo = _data.TimKiemCongVanDi(DateTime.Parse(dateFirst), DateTime.Parse(dateLast), idPhongBan, idDonViGui, idLoaiCongVan).Count();
+                countTextTo = _data.TimKiemCongVanDen(DateTime.Parse(dateFirst), DateTime.Parse(dateLast), idPhongBan, idDonViGui, idLoaiCongVan).Count();
+            }
+           
             var statistical = new Statistical()
             {
                 CountTextTo = countTextTo,
@@ -47,22 +81,66 @@ namespace ManagementDispatch.Controllers
 
         public ActionResult CountTextTo()
         {
-            DateTime dateFirst = DateTime.Parse(Session["dateFirst"].ToString());
-            DateTime dateLast = DateTime.Parse(Session["dateLast"].ToString());
+            string dateFirst = null;
+            if (Session["inputDayFirst"] != null)
+                dateFirst = Session["inputDayFirst"].ToString();
+            string dateLast = null;
+            if (Session["inputDayFirst"] != null)
+                dateLast = Session["inputDayLast"].ToString();
+            string idPhongBan = null;
+            string idLoaiCongVan = null;
+            string idDonViGui = null;
+            if(Session["IDPhongBan"] != null)
+                idPhongBan =Session["IDPhongBan"].ToString();
+            if (Session["IDLoaiCongVan"] != null)
+                idLoaiCongVan = Session["IDLoaiCongVan"].ToString();
+            if (Session["IDDonViGui"] != null)
+                idDonViGui = Session["IDDonViGui"].ToString();
+            
+            if (dateFirst == null && dateLast == null)
+            {
+               var getListTextTo = _data.TimKiemCongVanDen_2(idPhongBan, idDonViGui, idLoaiCongVan).ToList();
+              
+               return PartialView(getListTextTo);
+            }
+            else
+            {
+               var getListTextTo = _data.TimKiemCongVanDen(DateTime.Parse(dateFirst), DateTime.Parse(dateLast), idPhongBan, idDonViGui, idLoaiCongVan).ToList();
+               return PartialView(getListTextTo);
+            }
 
-            var getListTextTo = _data.CongVanDens.Where(x => x.NgayNhan >= dateFirst && x.NgayNhan <= dateLast).ToList();
-
-            return PartialView(getListTextTo);
+           // var getListTextTo = _data.TimKiemCongVanDen(dateFirst, dateLast, idPhongBan, idDonViGui, idLoaiCongVan);
+            
         }
 
         public ActionResult CountTextGo()
         {
-            DateTime dateFirst = DateTime.Parse(Session["dateFirst"].ToString());
-            DateTime dateLast = DateTime.Parse(Session["dateLast"].ToString());
+            string dateFirst = null;
+            if (Session["inputDayFirst"] != null)
+                dateFirst = Session["inputDayFirst"].ToString();
+            string dateLast = null;
+            if (Session["inputDayFirst"] != null)
+                dateLast = Session["inputDayLast"].ToString();
+            string idPhongBan = null;
+            string idLoaiCongVan = null;
+            string idDonViGui = null;
+            if (Session["IDPhongBan"] != null)
+                idPhongBan = Session["IDPhongBan"].ToString();
+            if (Session["IDLoaiCongVan"] != null)
+                idLoaiCongVan = Session["IDLoaiCongVan"].ToString();
+            if (Session["IDDonViGui"] != null)
+                idDonViGui = Session["IDDonViGui"].ToString();
 
-            var getListTextGo = _data.CongVanDis.Where(x => x.NgayGui >= dateFirst && x.NgayGui <= dateLast).ToList();
-
-            return PartialView(getListTextGo);
+            if (dateFirst == null && dateLast == null)
+            {
+                var getListTextGo = _data.TimKiemCongVanDi_2(idPhongBan, idDonViGui, idLoaiCongVan).ToList();
+                return PartialView(getListTextGo);
+            }
+            else
+            {
+                var getListTextGo = _data.TimKiemCongVanDi(DateTime.Parse(dateFirst), DateTime.Parse(dateLast), idPhongBan, idDonViGui, idLoaiCongVan).ToList();
+                return PartialView(getListTextGo);
+            }
         }
     }
 }

@@ -3,65 +3,66 @@
     ViewBag.Title = "Các công văn đi";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="box box-solid">
+    <div class="box-body">
+        <h1>Các công văn đi</h1>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
 
+                    @Html.ActionLink("Thêm mới", "AddTextGo", "Admin", htmlAttributes: new { @class = "btn btn-primary" })
 
-<p style="font-size:30px">Các công văn đi</p>
-<hr />
-<div class="row">
-    <div class="col-lg-12">
-        <div class="panel panel-default">
-
-                @Html.ActionLink("Thêm mới", "AddTextGo","Admin", htmlAttributes: new { @class = "btn btn-primary" })
-            
-            <div class="panel-body">
-                <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example-textgo">
-                    <thead>
-                        <tr>
-                            <th>STT</th>
-                            <th>Ngày gửi</th>
-                            <th>Số CV</th>
-                            <th>Loại CV</th>
-                            <th>Nội dung CV</th>
-                            <th>Phòng ban</th>
-                            <th>Người gửi</th>
-                            <th>Nơi gửi</th>
-                            <th>File</th>
-                            <th>Ảnh Scan</th>
-                            <th>Chức năng</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                        <tr>
-                            <td>@item.STT</td>
-                            <td class="center">@item.NgayGui.ToString(string.Format("dd/MM/yyyy"))</td>
-                            <td class="center">@item.IDCongVanDi</td>
-                            <td class="center">@item.LoaiCongVan.TenLoaiCongVan</td>
-                            <td class="center">@item.NoiDungCongViec</td>
-                            <td>@item.PhongBan.TenPhongBan</td>
-                            <td class="center">@item.TenNguoiGui</td>
-                            <td class="center">@item.DonVi.TenDonVi</td>
-                            <td class="center">@Html.ActionLink("Download", "Download", new { fileName = item.File })</td>
-                            <td class="center"> <img src="@Url.Content("~/"+item.AnhScan)" width="60px" height="50px"></td>
-                            <td class="center">
-                                @Html.ActionLink("Sửa", "EditTextGo", new { id = item.STT }, htmlAttributes: new { @class = "btn btn-primary" }) |
-                                @Ajax.ActionLink("Xóa","Delete",new { @id = item.STT},new AjaxOptions
-                                  {
-                                      Confirm = "Bạn có muốn xóa công văn này?",
-                                      OnComplete = "$('#row_"+@item.STT+"').remove()",
-                                      HttpMethod = "Delete"
-                                  }, htmlAttributes: new { @class = "btn btn-danger" })
-                            </td>
-                        </tr>
-                        }
-                    </tbody>
-                </table>
+                    <div class="panel-body">
+                        <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example-textgo">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Ngày gửi</th>
+                                    <th>Số CV</th>
+                                    <th>Loại CV</th>
+                                    <th>Nội dung CV</th>
+                                    <th>Phòng ban</th>
+                                    <th>Người gửi</th>
+                                    <th>Nơi gửi</th>
+                                    <th>File</th>
+                                    <th>Ảnh Scan</th>
+                                    <th>Chức năng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.STT</td>
+                                        <td class="center">@item.NgayGui.ToString(string.Format("dd/MM/yyyy"))</td>
+                                        <td class="center">@item.IDCongVanDi</td>
+                                        <td class="center">@item.LoaiCongVan.TenLoaiCongVan</td>
+                                        <td class="center">@item.NoiDungCongViec</td>
+                                        <td>@item.PhongBan.TenPhongBan</td>
+                                        <td class="center">@item.TenNguoiGui</td>
+                                        <td class="center">@item.DonVi.TenDonVi</td>
+                                        <td class="center">@Html.ActionLink("Download", "Download", new { fileName = item.File })</td>
+                                        <td class="center"> <img src="@Url.Content("~/"+item.AnhScan)" width="60px" height="50px"></td>
+                                        <td class="center">
+                                            @Html.ActionLink("Sửa", "EditTextGo", new { id = item.STT }, htmlAttributes: new { @class = "btn btn-primary" }) |
+                                            @Ajax.ActionLink("Xóa","Delete",new { @id = item.STT},new AjaxOptions
+                                              {
+                                                  Confirm = "Bạn có muốn xóa công văn này?",
+                                                  OnComplete = "$('#row_"+@item.STT+"').remove()",
+                                                  HttpMethod = "Delete"
+                                              }, htmlAttributes: new { @class = "btn btn-danger" })
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- /.panel -->
             </div>
+            <!-- /.col-lg-12 -->
         </div>
-        <!-- /.panel -->
     </div>
-    <!-- /.col-lg-12 -->
 </div>
 <script>
     $(document).ready(function () {

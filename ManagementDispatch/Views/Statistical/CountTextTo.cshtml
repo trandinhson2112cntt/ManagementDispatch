@@ -1,7 +1,17 @@
 ﻿@model IEnumerable<ManagementDispatch.Models.CongVanDen>
 
-<p style="font-size:20px">Số công văn đến: @Model.Count()</p>
-<hr />
+<div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="info-box">
+        <span class="info-box-icon bg-aqua"><i class="fa fa-envelope-o"></i></span>
+
+        <div class="info-box-content">
+            <span class="info-box-text">Số công văn đến </span>
+            <span class="info-box-number">@*@Model.Count()*@<small></small></span>
+        </div>
+        <!-- /.info-box-content -->
+    </div>
+    <!-- /.info-box -->
+</div>
 <hr />
 <div class="row">
     <div class="col-lg-12">
@@ -30,7 +40,7 @@
                             <tr>
                                 <td>@item.STT</td>
                                 <td>@item.NgayNhan.ToString(string.Format("dd/MM/yyyy"))</td>
-                                <td>@item.DonVi.TenDonVi</td>
+                                <td>@item.DonVi.IDDonVi</td>
                                 <td>@item.IDCongVanDen</td>
                                 <td>@item.LoaiCongVan.TenLoaiCongVan</td>
                                 <td>@item.NgayGui.ToString(string.Format("dd/MM/yyyy"))</td>
@@ -38,7 +48,7 @@
                                 <td>@item.TenNguoiNhan</td>
                                 <td>@item.PhongBan.TenPhongBan</td>
                                 <td>@Html.ActionLink("Download", "Download", new { fileName = item.File })</td>
-                                @*<td style="width:60px"> <img src="@Url.Content("~/"+item.AnhScan)" width="60px" height="50px"></td>*@                                
+                                @*<td style="width:60px"> <img src="@Url.Content("~/"+item.AnhScan)" width="60px" height="50px"></td>*@
                             </tr>
                         }
                     </tbody>

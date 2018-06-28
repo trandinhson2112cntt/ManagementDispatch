@@ -4,8 +4,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<p style="font-size:20px">Tổng số công văn: @Model.SUM</p>
-<hr />
+<div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="info-box">
+        <span class="info-box-icon bg-green"><i class="fa fa-star-o"></i></span>
 
+        <div class="info-box-content">
+            <span class="info-box-text">Tổng số:</span>
+            <span class="info-box-number"> @Model.SUM</span>
+        </div>
+        <!-- /.info-box-content -->
+    </div>
+    <!-- /.info-box -->
+</div>
+</hr>
 @Html.Action("CountTextTo", "Statistical")
 @Html.Action("CountTextGo", "Statistical")
