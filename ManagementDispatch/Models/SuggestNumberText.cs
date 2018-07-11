@@ -10,6 +10,8 @@ namespace ManagementDispatch.Models
         public int CountTextTo { get; set; }
         public int CountTextGo { get; set; }
         public int SUM { get; set; }
-        public int Number { get; set; }
+        public int NumberTo { get; set; }
+        public int NumberGo { get; set; }
+
     }
 }

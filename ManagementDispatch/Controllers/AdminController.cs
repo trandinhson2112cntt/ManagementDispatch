@@ -64,7 +64,7 @@ namespace ManagementDispatch.Controllers
 
             UpdateModel(getInfoAdmin);
             _data.SubmitChanges();
-            return View(getInfoAdmin);
+            return View("ProfileAdmin");
 
         }
 

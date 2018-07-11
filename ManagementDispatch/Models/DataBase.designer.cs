@@ -885,7 +885,7 @@ namespace ManagementDispatch.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NgayGui", DbType="DateTime NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NgayGui", DbType="Date NOT NULL")]
 		public System.DateTime NgayGui
 		{
 			get
@@ -905,7 +905,7 @@ namespace ManagementDispatch.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NgayNhan", DbType="DateTime NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NgayNhan", DbType="Date NOT NULL")]
 		public System.DateTime NgayNhan
 		{
 			get
@@ -1452,7 +1452,7 @@ namespace ManagementDispatch.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NgayGui", DbType="DateTime NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NgayGui", DbType="Date NOT NULL")]
 		public System.DateTime NgayGui
 		{
 			get

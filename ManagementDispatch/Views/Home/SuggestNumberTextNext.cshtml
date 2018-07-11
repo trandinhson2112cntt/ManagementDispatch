@@ -26,6 +26,8 @@
         </div>
         <!-- /.info-box -->
     </div>
+</div>
+<div class="row" style="margin:5px;margin-top:10px;">
     <!-- /.col -->
     <!-- fix for small devices only -->
     <div class="clearfix visible-sm-block"></div>
@@ -35,8 +37,8 @@
             <span class="info-box-icon bg-green"><i class="fa fa-star-o"></i></span>
 
             <div class="info-box-content">
-                <span class="info-box-text">Số công văn mới</span>
-                <span class="info-box-number"> @Model.Number</span>
+                <span class="info-box-text">Số CV đến mới</span>
+                <span class="info-box-number"> @Model.NumberTo</span>
             </div>
             <!-- /.info-box-content -->
         </div>
@@ -48,8 +50,36 @@
             <span class="info-box-icon bg-yellow"><i class="fa fa-flag-o"></i></span>
 
             <div class="info-box-content">
-                <span class="info-box-text">Số công văn tiếp:</span>
-                <span class="info-box-number"> @(Model.Number + 1)</span>
+                <span class="info-box-text">STT CV đến tiếp</span>
+                <span class="info-box-number"> @(Model.NumberTo + 1)</span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+</div>
+<div class="row" style="margin:5px;margin-top:10px;">
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-green"><i class="fa fa-star-o"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">Số CV đi mới</span>
+                <span class="info-box-number"> @Model.NumberGo</span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-yellow"><i class="fa fa-flag-o"></i></span>
+
+            <div class="info-box-content">
+                <span class="info-box-text">STT CV đi tiếp</span>
+                <span class="info-box-number"> @(Model.NumberGo + 1)</span>
             </div>
             <!-- /.info-box-content -->
         </div>

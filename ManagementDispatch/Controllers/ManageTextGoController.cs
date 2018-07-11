@@ -1,6 +1,7 @@
 ﻿using ManagementDispatch.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -124,7 +125,6 @@ namespace ManagementDispatch.Controllers
         public ActionResult EditTextGo(int id, FormCollection formCollection, HttpPostedFileBase uploadFile)
         {
             CongVanDi getTextGo = _data.CongVanDis.SingleOrDefault(c => c.STT == id);
-
             if (ModelState.IsValid)
             {
                 if (uploadFile != null)
@@ -176,7 +176,7 @@ namespace ManagementDispatch.Controllers
             try
             {
                 var getTextGo = _data.CongVanDis.First(x => x.STT == id);
-                string fullPath = Request.MapPath(getTextGo.File);
+                string fullPath = "/FileDocument/" + Request.MapPath(getTextGo.File);
                 if (System.IO.File.Exists(fullPath))
                 {
                     System.IO.File.Delete(fullPath);

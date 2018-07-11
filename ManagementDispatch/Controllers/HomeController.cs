@@ -157,15 +157,15 @@ namespace ManagementDispatch.Controllers
             }
             if (getStringSuggest2 != null)
                 number2 = int.Parse(getStringSuggest2);
-            int selectNumber = number;
-            if (number2 > number)
-                selectNumber = number2;
+            int selectNumberTo = number;
+            int selectNumberGo = number2;
             var statistical = new SuggestNumberText()
             {
                 CountTextTo = countTextTo,
                 CountTextGo = countTextGo,
                 SUM = countTextTo + countTextGo,
-                Number = selectNumber
+                NumberTo = selectNumberTo,
+                NumberGo = selectNumberGo
             };
             
 

@@ -33,8 +33,8 @@
       <Column Name="IDCongVanDen" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
       <Column Name="IDLoaiCongVan" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="NoiDung" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="NgayGui" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="NgayNhan" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="NgayGui" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="NgayNhan" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
       <Column Name="TenNguoiGui" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="IDPhongBan" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="IDDonViGui" Type="System.Int32" DbType="Int" CanBeNull="true" />
@@ -57,7 +57,7 @@
       <Column Name="TenNguoiGui" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="IDDonViGui" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="NoiDungCongViec" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="NgayGui" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="NgayGui" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
       <Column Name="[File]" Member="File" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Column Name="AnhScan" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Column Name="BaoMat" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />

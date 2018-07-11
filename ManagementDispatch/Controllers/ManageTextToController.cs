@@ -141,11 +141,9 @@ namespace ManagementDispatch.Controllers
             int idLoaiCongVan = int.Parse(formCollection["IDLoaiCongVan"]);
             int idPhongBan = int.Parse(formCollection["IDPhongBan"]);
             int idDonViGui = int.Parse(formCollection["IDDonViGui"]);
-            int idDonViNhan = int.Parse(formCollection["IDDonViNhan"]);
             string noiDung = formCollection["NoiDung"];
             DateTime ngayGui = DateTime.Parse(formCollection["NgayGui"]);
             DateTime ngayNhan = DateTime.Parse(formCollection["NgayNhan"]);
-            string tenNguoiGui = formCollection["TenNguoiGui"];
             string tenNguoiNhan = formCollection["TenNguoiNhan"];
             string anhScan = formCollection["AnhScan"];
 
@@ -153,10 +151,8 @@ namespace ManagementDispatch.Controllers
             getTextTo.NoiDung = noiDung;
             getTextTo.NgayGui = ngayGui;
             getTextTo.NgayNhan = ngayNhan;
-            getTextTo.TenNguoiGui = tenNguoiGui;
             getTextTo.IDPhongBan = idPhongBan;
             getTextTo.IDDonViGui = idDonViGui;
-            getTextTo.IDDonViNhan = idDonViNhan;
             getTextTo.TenNguoiNhan = tenNguoiNhan;
             getTextTo.AnhScan = anhScan;
 
@@ -212,6 +208,16 @@ namespace ManagementDispatch.Controllers
             try
             {
                 var getTextTo = _data.CongVanDens.First(x => x.STT == id);
+                string fullPath = "/FileDocument/" + Request.MapPath(getTextTo.File);
+                if (System.IO.File.Exists(fullPath))
+                {
+                    System.IO.File.Delete(fullPath);
+                }
+                string fullPath2 = Request.MapPath(getTextTo.AnhScan);
+                if (System.IO.File.Exists(fullPath2))
+                {
+                    System.IO.File.Delete(fullPath2);
+                }
                 _data.CongVanDens.DeleteOnSubmit(getTextTo);
                 _data.SubmitChanges();
 

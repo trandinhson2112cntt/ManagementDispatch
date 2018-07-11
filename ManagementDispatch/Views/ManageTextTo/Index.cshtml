@@ -19,10 +19,10 @@
                         <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example-textto">
                             <thead>
                                 <tr>
-                                    <th>STT</th>
+                                    <th style="width:1%">STT</th>
                                     <th>Ngày nhận</th>
                                     <th>Nơi gửi</th>
-                                    <th>Số CV</th>
+                                    <th style="width:7%">Số CV</th>
                                     <th>Loại CV</th>
                                     <th>Ngày gửi</th>
                                     <th>Nội dung</th>
@@ -30,7 +30,7 @@
                                     <th>Phòng ban</th>
                                     <th>File</th>
                                     <th>Ảnh Scan</th>
-                                    <th>Chức năng</th>
+                                    <th style="width:11%">Chức năng</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -56,6 +56,8 @@
                                                OnComplete = "$('#row_"+@item.STT+"').remove()",
                                                HttpMethod = "Delete"
                                            }, htmlAttributes: new { @class = "btn btn-danger" })
+                                            |
+                                            @Html.ActionLink("Delete", "Delete", new { id = item.STT }, new { onclick = "return confirm('Are sure wants to delete?');" , @class = "btn btn-danger" })
                                         </td>
                                     </tr>
                                 }

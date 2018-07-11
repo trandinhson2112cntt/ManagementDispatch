@@ -165,19 +165,21 @@
     <Compile Include="Controllers\ManageTextSecretController.cs" />
     <Compile Include="Controllers\ManageTextToController.cs" />
     <Compile Include="Controllers\StatisticalController.cs" />
+    <Compile Include="Controllers\SweetController.cs" />
     <Compile Include="Controllers\SystemLogController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AuthorzireBusiness.cs" />
-    <Compile Include="Models\Encryptor.cs" />
-    <Compile Include="Models\PermissionAction.cs" />
-    <Compile Include="Models\ReflectionController.cs" />
     <Compile Include="Models\DataBase.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DataBase.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\DateTimeFormat.cs" />
+    <Compile Include="Models\Encryptor.cs" />
+    <Compile Include="Models\PermissionAction.cs" />
+    <Compile Include="Models\ReflectionController.cs" />
     <Compile Include="Models\Statistical.cs" />
     <Compile Include="Models\SuggestNumberText.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -187,6 +189,10 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\sweetalert\bootstrap-sweetalert.png" />
+    <Content Include="Content\sweetalert\docs.css" />
+    <Content Include="Content\sweetalert\sweet-alert.css" />
+    <Content Include="Content\sweetalert\thumbs-up.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="FileDocument\a6ec6c3d206d051f.txt" />
     <Content Include="FileDocument\Tawkto.txt" />
@@ -203,6 +209,11 @@
       <LastGenOutput>DataBase.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Content\sweetalert\sweet-alert.less" />
+    <Content Include="Content\sweetalert\sweet-alert-combine.less" />
+    <Content Include="Content\sweetalert\sweet-alert-animations.less" />
+    <Content Include="Content\bootstrap\variables.less" />
+    <Content Include="Content\bootstrap\mixins.less" />
     <None Include="Models\DataBase.dbml.layout">
       <DependentUpon>DataBase.dbml</DependentUpon>
     </None>
@@ -7908,6 +7919,7 @@
     <Content Include="Views\Home\ForgotPassword.cshtml" />
     <Content Include="Views\Admin\EditProfile.cshtml" />
     <Content Include="Views\Admin\ChangePassword.cshtml" />
+    <Content Include="Views\Sweet\Alert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

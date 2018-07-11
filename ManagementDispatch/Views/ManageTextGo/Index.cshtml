@@ -18,7 +18,7 @@
                                 <tr>
                                     <th>STT</th>
                                     <th>Ngày gửi</th>
-                                    <th>Số CV</th>
+                                    <th style="width:7%">Số CV</th>
                                     <th>Loại CV</th>
                                     <th>Nội dung CV</th>
                                     <th>Phòng ban</th>
@@ -26,7 +26,7 @@
                                     <th>Nơi gửi</th>
                                     <th>File</th>
                                     <th>Ảnh Scan</th>
-                                    <th>Chức năng</th>
+                                    <th style="width:11%" >Chức năng</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -42,7 +42,7 @@
                                         <td class="center">@item.TenNguoiGui</td>
                                         <td class="center">@item.DonVi.TenDonVi</td>
                                         <td class="center">@Html.ActionLink("Download", "Download", new { fileName = item.File })</td>
-                                        <td class="center"> <img src="@Url.Content("~/"+item.AnhScan)" width="60px" height="50px"></td>
+                                        <td class="center"> <img src="@Url.Content("~/"+item.AnhScan)" width="60" height="50"></td>
                                         <td class="center">
                                             @Html.ActionLink("Sửa", "EditTextGo", new { id = item.STT }, htmlAttributes: new { @class = "btn btn-primary" }) |
                                             @Ajax.ActionLink("Xóa","Delete",new { @id = item.STT},new AjaxOptions
